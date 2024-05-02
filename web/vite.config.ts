@@ -1,15 +1,45 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import viteTsconfigPaths from 'vite-tsconfig-paths'
+import react from "@vitejs/plugin-react";
+import { resolve } from "path";
+import { defineConfig } from "vite";
 
+let devProxyServer = "http://localhost:8081";
+if (process.env.DEV_PROXY_SERVER && process.env.DEV_PROXY_SERVER.length > 0) {
+  console.log("Use devProxyServer from environment: ", process.env.DEV_PROXY_SERVER);
+  devProxyServer = process.env.DEV_PROXY_SERVER;
+}
+
+// https://vitejs.dev/config/
 export default defineConfig({
-    // depending on your application, base can also be "/"
-    base: '',
-    plugins: [react(), viteTsconfigPaths()],
-    server: {
-        // this ensures that the browser opens upon server start
-        open: true,
-        // this sets a default port to 3000
-        port: 3000,
+  plugins: [react()],
+  server: {
+    host: "0.0.0.0",
+    port: 3001,
+    proxy: {
+      "^/api": {
+        target: devProxyServer,
+        xfwd: true,
+      },
+      "^/memos.api.v1": {
+        target: devProxyServer,
+        xfwd: true,
+      },
+      "^/o/": {
+        target: devProxyServer,
+        xfwd: true,
+      },
+      "^/u/.+/rss.xml": {
+        target: devProxyServer,
+        xfwd: true,
+      },
+      "^/explore/rss.xml": {
+        target: devProxyServer,
+        xfwd: true,
+      },
     },
-})
+  },
+  resolve: {
+    alias: {
+      "@/": `${resolve(__dirname, "src")}/`,
+    },
+  },
+});
