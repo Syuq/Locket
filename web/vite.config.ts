@@ -19,7 +19,7 @@ export default defineConfig({
         target: devProxyServer,
         xfwd: true,
       },
-      "^/memos.api.v1": {
+      "^/locket.api.v1": {
         target: devProxyServer,
         xfwd: true,
       },

@@ -9,7 +9,7 @@ interface CustomizedProfile {
 interface SystemStatus {
   // System settings
   disablePasswordLogin: boolean;
-  disablePublicMemos: boolean;
+  disablePublicLocket: boolean;
   maxUploadSizeMiB: number;
   customizedProfile: CustomizedProfile;
   storageServiceId: number;

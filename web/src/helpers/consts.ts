@@ -10,5 +10,5 @@ export const DAILY_TIMESTAMP = 3600 * 24 * 1000;
 // TAB_SPACE_WIDTH is the default tab space width.
 export const TAB_SPACE_WIDTH = 2;
 
-// DEFAULT_LIST_MEMOS_PAGE_SIZE is the default page size for list request.
-export const DEFAULT_LIST_MEMOS_PAGE_SIZE = 16;
+// DEFAULT_LIST_LOCKET_PAGE_SIZE is the default page size for list request.
+export const DEFAULT_LIST_LOCKET_PAGE_SIZE = 16;
