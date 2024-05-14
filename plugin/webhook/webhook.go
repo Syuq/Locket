@@ -15,7 +15,7 @@ var (
 	timeout = 30 * time.Second
 )
 
-type Memo struct {
+type Locket struct {
 	ID        int32 `json:"id"`
 	CreatorID int32 `json:"creatorId"`
 	CreatedTs int64 `json:"createdTs"`
@@ -26,7 +26,7 @@ type Memo struct {
 	Visibility   string          `json:"visibility"`
 	Pinned       bool            `json:"pinned"`
 	ResourceList []*Resource     `json:"resourceList"`
-	RelationList []*MemoRelation `json:"relationList"`
+	RelationList []*LocketRelation `json:"relationList"`
 }
 
 type Resource struct {
@@ -46,9 +46,9 @@ type Resource struct {
 	Size         int64  `json:"size"`
 }
 
-type MemoRelation struct {
-	MemoID        int32  `json:"memoId"`
-	RelatedMemoID int32  `json:"relatedMemoId"`
+type LocketRelation struct {
+	LocketID        int32  `json:"locketId"`
+	RelatedLocketID int32  `json:"relatedLocketId"`
 	Type          string `json:"type"`
 }
 
@@ -59,7 +59,7 @@ type WebhookPayload struct {
 	ActivityType string `json:"activityType"`
 	CreatorID    int32  `json:"creatorId"`
 	CreatedTs    int64  `json:"createdTs"`
-	Memo         *Memo  `json:"memo"`
+	Locket         *Locket  `json:"locket"`
 }
 
 // WebhookResponse is the response of webhook request.
