@@ -37,4 +37,3 @@ export const downloadFileFromUrl = (url: string, filename: string) => {
   a.click();
   a.remove();
 };
- 

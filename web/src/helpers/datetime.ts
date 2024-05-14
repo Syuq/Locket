@@ -30,9 +30,9 @@ export function getTimeString(t?: Date | number | string): string {
  * If no date is provided, the current date is used.
  *
  * Sample outputs:
- * - "en" locale: "1/30/2024, 10:05:00 PM"
- * - "pt-BR" locale: "30/01/2024 22:05:00"
- * - "pl" locale: "30.01.2024, 22:05:00"
+ * - "en" locale: "1/30/2023, 10:05:00 PM"
+ * - "pt-BR" locale: "30/01/2023 22:05:00"
+ * - "pl" locale: "30.01.2023, 22:05:00"
  */
 export function getDateTimeString(t?: Date | number | string | any, locale = i18n.language): string {
   const tsFromDate = new Date(getTimeStampByDate(t ? t : Date.now()));
