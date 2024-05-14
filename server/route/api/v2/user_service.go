@@ -242,7 +242,7 @@ func getDefaultUserSetting() *apiv2pb.UserSetting {
 	return &apiv2pb.UserSetting{
 		Locale:         "en",
 		Appearance:     "system",
-		MemoVisibility: "PRIVATE",
+		LocketVisibility: "PRIVATE",
 	}
 }
 
@@ -264,8 +264,8 @@ func (s *APIV2Service) GetUserSetting(ctx context.Context, _ *apiv2pb.GetUserSet
 			userSettingMessage.Locale = setting.GetLocale()
 		} else if setting.Key == storepb.UserSettingKey_USER_SETTING_APPEARANCE {
 			userSettingMessage.Appearance = setting.GetAppearance()
-		} else if setting.Key == storepb.UserSettingKey_USER_SETTING_MEMO_VISIBILITY {
-			userSettingMessage.MemoVisibility = setting.GetMemoVisibility()
+		} else if setting.Key == storepb.UserSettingKey_USER_SETTING_LOCKET_VISIBILITY {
+			userSettingMessage.LocketVisibility = setting.GetLocketVisibility()
 		} else if setting.Key == storepb.UserSettingKey_USER_SETTING_TELEGRAM_USER_ID {
 			userSettingMessage.TelegramUserId = setting.GetTelegramUserId()
 		}
@@ -306,12 +306,12 @@ func (s *APIV2Service) UpdateUserSetting(ctx context.Context, request *apiv2pb.U
 			}); err != nil {
 				return nil, status.Errorf(codes.Internal, "failed to upsert user setting: %v", err)
 			}
-		} else if field == "memo_visibility" {
+		} else if field == "locket_visibility" {
 			if _, err := s.Store.UpsertUserSetting(ctx, &storepb.UserSetting{
 				UserId: user.ID,
-				Key:    storepb.UserSettingKey_USER_SETTING_MEMO_VISIBILITY,
-				Value: &storepb.UserSetting_MemoVisibility{
-					MemoVisibility: request.Setting.MemoVisibility,
+				Key:    storepb.UserSettingKey_USER_SETTING_LOCKET_VISIBILITY,
+				Value: &storepb.UserSetting_LocketVisibility{
+					LocketVisibility: request.Setting.LocketVisibility,
 				},
 			}); err != nil {
 				return nil, status.Errorf(codes.Internal, "failed to upsert user setting: %v", err)

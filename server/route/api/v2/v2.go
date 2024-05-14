@@ -24,7 +24,7 @@ type APIV2Service struct {
 	apiv2pb.UnimplementedWorkspaceSettingServiceServer
 	apiv2pb.UnimplementedAuthServiceServer
 	apiv2pb.UnimplementedUserServiceServer
-	apiv2pb.UnimplementedMemoServiceServer
+	apiv2pb.UnimplementedLocketServiceServer
 	apiv2pb.UnimplementedResourceServiceServer
 	apiv2pb.UnimplementedTagServiceServer
 	apiv2pb.UnimplementedInboxServiceServer
@@ -61,7 +61,7 @@ func NewAPIV2Service(secret string, profile *profile.Profile, store *store.Store
 	apiv2pb.RegisterWorkspaceSettingServiceServer(grpcServer, apiv2Service)
 	apiv2pb.RegisterAuthServiceServer(grpcServer, apiv2Service)
 	apiv2pb.RegisterUserServiceServer(grpcServer, apiv2Service)
-	apiv2pb.RegisterMemoServiceServer(grpcServer, apiv2Service)
+	apiv2pb.RegisterLocketServiceServer(grpcServer, apiv2Service)
 	apiv2pb.RegisterTagServiceServer(grpcServer, apiv2Service)
 	apiv2pb.RegisterResourceServiceServer(grpcServer, apiv2Service)
 	apiv2pb.RegisterInboxServiceServer(grpcServer, apiv2Service)
@@ -103,7 +103,7 @@ func (s *APIV2Service) RegisterGateway(ctx context.Context, e *echo.Echo) error 
 	if err := apiv2pb.RegisterUserServiceHandler(context.Background(), gwMux, conn); err != nil {
 		return err
 	}
-	if err := apiv2pb.RegisterMemoServiceHandler(context.Background(), gwMux, conn); err != nil {
+	if err := apiv2pb.RegisterLocketServiceHandler(context.Background(), gwMux, conn); err != nil {
 		return err
 	}
 	if err := apiv2pb.RegisterTagServiceHandler(context.Background(), gwMux, conn); err != nil {
@@ -134,7 +134,7 @@ func (s *APIV2Service) RegisterGateway(ctx context.Context, e *echo.Echo) error 
 		}),
 	}
 	wrappedGrpc := grpcweb.WrapServer(s.grpcServer, options...)
-	e.Any("/memos.api.v2.*", echo.WrapHandler(wrappedGrpc))
+	e.Any("/lockets.api.v2.*", echo.WrapHandler(wrappedGrpc))
 
 	// Start gRPC server.
 	listen, err := net.Listen("tcp", fmt.Sprintf("%s:%d", s.Profile.Addr, s.grpcServerPort))

@@ -41,12 +41,12 @@ func (s *APIV2Service) CreateResource(ctx context.Context, request *apiv2pb.Crea
 		ExternalLink: request.ExternalLink,
 		Type:         request.Type,
 	}
-	if request.Memo != nil {
-		memoID, err := ExtractMemoIDFromName(*request.Memo)
+	if request.Locket != nil {
+		locketID, err := ExtractLocketIDFromName(*request.Locket)
 		if err != nil {
-			return nil, status.Errorf(codes.InvalidArgument, "invalid memo id: %v", err)
+			return nil, status.Errorf(codes.InvalidArgument, "invalid locket id: %v", err)
 		}
-		create.MemoID = &memoID
+		create.LocketID = &locketID
 	}
 	resource, err := s.Store.CreateResource(ctx, create)
 	if err != nil {
@@ -143,15 +143,15 @@ func (s *APIV2Service) UpdateResource(ctx context.Context, request *apiv2pb.Upda
 	for _, field := range request.UpdateMask.Paths {
 		if field == "filename" {
 			update.Filename = &request.Resource.Filename
-		} else if field == "memo" {
-			if request.Resource.Memo == nil {
-				return nil, status.Errorf(codes.InvalidArgument, "memo is required")
+		} else if field == "locket" {
+			if request.Resource.Locket == nil {
+				return nil, status.Errorf(codes.InvalidArgument, "locket is required")
 			}
-			memoID, err := ExtractMemoIDFromName(*request.Resource.Memo)
+			locketID, err := ExtractLocketIDFromName(*request.Resource.Locket)
 			if err != nil {
-				return nil, status.Errorf(codes.InvalidArgument, "invalid memo id: %v", err)
+				return nil, status.Errorf(codes.InvalidArgument, "invalid locket id: %v", err)
 			}
-			update.MemoID = &memoID
+			update.LocketID = &locketID
 		}
 	}
 
@@ -202,13 +202,13 @@ func (s *APIV2Service) convertResourceFromStore(ctx context.Context, resource *s
 		Type:         resource.Type,
 		Size:         resource.Size,
 	}
-	if resource.MemoID != nil {
-		memo, _ := s.Store.GetMemo(ctx, &store.FindMemo{
-			ID: resource.MemoID,
+	if resource.LocketID != nil {
+		locket, _ := s.Store.GetLocket(ctx, &store.FindLocket{
+			ID: resource.LocketID,
 		})
-		if memo != nil {
-			memoName := fmt.Sprintf("%s%d", MemoNamePrefix, memo.ID)
-			resourceMessage.Memo = &memoName
+		if locket != nil {
+			locketName := fmt.Sprintf("%s%d", LocketNamePrefix, locket.ID)
+			resourceMessage.Locket = &locketName
 		}
 	}
 

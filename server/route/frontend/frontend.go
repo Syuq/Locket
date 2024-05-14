@@ -42,7 +42,7 @@ func (s *FrontendService) Serve(ctx context.Context, e *echo.Echo) {
 		Root:  "dist",
 		HTML5: true,
 		Skipper: func(c echo.Context) bool {
-			return util.HasPrefixes(c.Path(), "/api", "/memos.api.v2", "/robots.txt", "/sitemap.xml", "/m/:name")
+			return util.HasPrefixes(c.Path(), "/api", "/lockets.api.v2", "/robots.txt", "/sitemap.xml", "/m/:name")
 		},
 	}))
 
@@ -56,25 +56,25 @@ func (s *FrontendService) registerRoutes(e *echo.Echo) {
 	e.GET("/m/:uid", func(c echo.Context) error {
 		ctx := c.Request().Context()
 		uid := c.Param("uid")
-		memo, err := s.Store.GetMemo(ctx, &store.FindMemo{
+		locket, err := s.Store.GetLocket(ctx, &store.FindLocket{
 			UID: &uid,
 		})
 		if err != nil {
 			return c.HTML(http.StatusOK, rawIndexHTML)
 		}
-		if memo == nil {
+		if locket == nil {
 			return c.HTML(http.StatusOK, rawIndexHTML)
 		}
 		creator, err := s.Store.GetUser(ctx, &store.FindUser{
-			ID: &memo.CreatorID,
+			ID: &locket.CreatorID,
 		})
 		if err != nil {
 			return c.HTML(http.StatusOK, rawIndexHTML)
 		}
 
-		// Inject memo metadata into `index.html`.
-		indexHTML := strings.ReplaceAll(rawIndexHTML, "<!-- memos.metadata.head -->", generateMemoMetadata(memo, creator).String())
-		indexHTML = strings.ReplaceAll(indexHTML, "<!-- memos.metadata.body -->", fmt.Sprintf("<!-- memos.memo.%d -->", memo.ID))
+		// Inject locket metadata into `index.html`.
+		indexHTML := strings.ReplaceAll(rawIndexHTML, "<!-- lockets.metadata.head -->", generateLocketMetadata(locket, creator).String())
+		indexHTML = strings.ReplaceAll(indexHTML, "<!-- lockets.metadata.body -->", fmt.Sprintf("<!-- lockets.locket.%d -->", locket.ID))
 		return c.HTML(http.StatusOK, indexHTML)
 	})
 }
@@ -100,30 +100,30 @@ Sitemap: %s/sitemap.xml`, instanceURL, instanceURL)
 	e.GET("/sitemap.xml", func(c echo.Context) error {
 		ctx := c.Request().Context()
 		urlsets := []string{}
-		// Append memo list.
-		memoList, err := s.Store.ListMemos(ctx, &store.FindMemo{
+		// Append locket list.
+		locketList, err := s.Store.ListLockets(ctx, &store.FindLocket{
 			VisibilityList: []store.Visibility{store.Public},
 		})
 		if err != nil {
 			return err
 		}
-		for _, memo := range memoList {
-			urlsets = append(urlsets, fmt.Sprintf(`<url><loc>%s</loc></url>`, fmt.Sprintf("%s/m/%s", instanceURL, memo.UID)))
+		for _, locket := range locketList {
+			urlsets = append(urlsets, fmt.Sprintf(`<url><loc>%s</loc></url>`, fmt.Sprintf("%s/m/%s", instanceURL, locket.UID)))
 		}
 		sitemap := fmt.Sprintf(`<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">%s</urlset>`, strings.Join(urlsets, "\n"))
 		return c.XMLBlob(http.StatusOK, []byte(sitemap))
 	})
 }
 
-func generateMemoMetadata(memo *store.Memo, creator *store.User) *Metadata {
+func generateLocketMetadata(locket *store.Locket, creator *store.User) *Metadata {
 	metadata := getDefaultMetadata()
-	metadata.Title = fmt.Sprintf("%s(@%s) on Memos", creator.Nickname, creator.Username)
-	if memo.Visibility == store.Public {
-		tokens := tokenizer.Tokenize(memo.Content)
+	metadata.Title = fmt.Sprintf("%s(@%s) on Lockets", creator.Nickname, creator.Username)
+	if locket.Visibility == store.Public {
+		tokens := tokenizer.Tokenize(locket.Content)
 		nodes, _ := parser.Parse(tokens)
 		description := renderer.NewStringRenderer().Render(nodes)
 		if len(description) == 0 {
-			description = memo.Content
+			description = locket.Content
 		}
 		if len(description) > maxMetadataDescriptionLength {
 			description = description[:maxMetadataDescriptionLength] + "..."
@@ -147,7 +147,7 @@ type Metadata struct {
 
 func getDefaultMetadata() *Metadata {
 	return &Metadata{
-		Title:       "Memos",
+		Title:       "Lockets",
 		Description: "A privacy-first, lightweight note-taking service. Easily capture and share your great thoughts.",
 		ImageURL:    "/logo.webp",
 	}
@@ -165,7 +165,7 @@ func (m *Metadata) String() string {
 		fmt.Sprintf(`<meta property="twitter:description" content="%s" />`, m.Description),
 		fmt.Sprintf(`<meta property="twitter:image" content="%s" />`, m.ImageURL),
 		`<meta name="twitter:card" content="summary" />`,
-		`<meta name="twitter:creator" content="memos" />`,
+		`<meta name="twitter:creator" content="lockets" />`,
 	}
 	return strings.Join(metadataList, "\n")
 }

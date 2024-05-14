@@ -88,19 +88,19 @@ func (s *APIV2Service) RenameTag(ctx context.Context, request *apiv2pb.RenameTag
 		return nil, status.Errorf(codes.NotFound, "user not found")
 	}
 
-	// Find all related memos.
-	memos, err := s.Store.ListMemos(ctx, &store.FindMemo{
+	// Find all related lockets.
+	lockets, err := s.Store.ListLockets(ctx, &store.FindLocket{
 		CreatorID:     &user.ID,
 		ContentSearch: []string{fmt.Sprintf("#%s", request.OldName)},
 	})
 	if err != nil {
-		return nil, status.Errorf(codes.Internal, "failed to list memos: %v", err)
+		return nil, status.Errorf(codes.Internal, "failed to list lockets: %v", err)
 	}
-	// Replace tag name in memo content.
-	for _, memo := range memos {
-		nodes, err := parser.Parse(tokenizer.Tokenize(memo.Content))
+	// Replace tag name in locket content.
+	for _, locket := range lockets {
+		nodes, err := parser.Parse(tokenizer.Tokenize(locket.Content))
 		if err != nil {
-			return nil, status.Errorf(codes.Internal, "failed to parse memo: %v", err)
+			return nil, status.Errorf(codes.Internal, "failed to parse locket: %v", err)
 		}
 		TraverseASTNodes(nodes, func(node ast.Node) {
 			if tag, ok := node.(*ast.Tag); ok && tag.Content == request.OldName {
@@ -108,11 +108,11 @@ func (s *APIV2Service) RenameTag(ctx context.Context, request *apiv2pb.RenameTag
 			}
 		})
 		content := restore.Restore(nodes)
-		if err := s.Store.UpdateMemo(ctx, &store.UpdateMemo{
-			ID:      memo.ID,
+		if err := s.Store.UpdateLocket(ctx, &store.UpdateLocket{
+			ID:      locket.ID,
 			Content: &content,
 		}); err != nil {
-			return nil, status.Errorf(codes.Internal, "failed to update memo: %v", err)
+			return nil, status.Errorf(codes.Internal, "failed to update locket: %v", err)
 		}
 	}
 
@@ -177,14 +177,14 @@ func (s *APIV2Service) GetTagSuggestions(ctx context.Context, request *apiv2pb.G
 		return nil, status.Errorf(codes.NotFound, "user not found")
 	}
 	normalRowStatus := store.Normal
-	memoFind := &store.FindMemo{
+	locketFind := &store.FindLocket{
 		CreatorID:     &user.ID,
 		ContentSearch: []string{"#"},
 		RowStatus:     &normalRowStatus,
 	}
-	memos, err := s.Store.ListMemos(ctx, memoFind)
+	lockets, err := s.Store.ListLockets(ctx, locketFind)
 	if err != nil {
-		return nil, status.Errorf(codes.Internal, "failed to list memos: %v", err)
+		return nil, status.Errorf(codes.Internal, "failed to list lockets: %v", err)
 	}
 
 	tagList, err := s.Store.ListTags(ctx, &store.FindTag{
@@ -199,13 +199,13 @@ func (s *APIV2Service) GetTagSuggestions(ctx context.Context, request *apiv2pb.G
 		tagNameList = append(tagNameList, tag.Name)
 	}
 	tagMapSet := make(map[string]bool)
-	for _, memo := range memos {
-		nodes, err := parser.Parse(tokenizer.Tokenize(memo.Content))
+	for _, locket := range lockets {
+		nodes, err := parser.Parse(tokenizer.Tokenize(locket.Content))
 		if err != nil {
-			return nil, errors.Wrap(err, "failed to parse memo content")
+			return nil, errors.Wrap(err, "failed to parse locket content")
 		}
 
-		// Dynamically upsert tags from memo content.
+		// Dynamically upsert tags from locket content.
 		TraverseASTNodes(nodes, func(node ast.Node) {
 			if tagNode, ok := node.(*ast.Tag); ok {
 				tag := tagNode.Content

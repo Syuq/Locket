@@ -43,17 +43,17 @@ func (s *RSSService) RegisterRoutes(g *echo.Group) {
 func (s *RSSService) GetExploreRSS(c echo.Context) error {
 	ctx := c.Request().Context()
 	normalStatus := store.Normal
-	memoFind := store.FindMemo{
+	locketFind := store.FindLocket{
 		RowStatus:      &normalStatus,
 		VisibilityList: []store.Visibility{store.Public},
 	}
-	memoList, err := s.Store.ListMemos(ctx, &memoFind)
+	locketList, err := s.Store.ListLockets(ctx, &locketFind)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to find memo list").SetInternal(err)
+		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to find locket list").SetInternal(err)
 	}
 
 	baseURL := c.Scheme() + "://" + c.Request().Host
-	rss, err := s.generateRSSFromMemoList(ctx, memoList, baseURL)
+	rss, err := s.generateRSSFromLocketList(ctx, locketList, baseURL)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to generate rss").SetInternal(err)
 	}
@@ -75,18 +75,18 @@ func (s *RSSService) GetUserRSS(c echo.Context) error {
 	}
 
 	normalStatus := store.Normal
-	memoFind := store.FindMemo{
+	locketFind := store.FindLocket{
 		CreatorID:      &user.ID,
 		RowStatus:      &normalStatus,
 		VisibilityList: []store.Visibility{store.Public},
 	}
-	memoList, err := s.Store.ListMemos(ctx, &memoFind)
+	locketList, err := s.Store.ListLockets(ctx, &locketFind)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to find memo list").SetInternal(err)
+		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to find locket list").SetInternal(err)
 	}
 
 	baseURL := c.Scheme() + "://" + c.Request().Host
-	rss, err := s.generateRSSFromMemoList(ctx, memoList, baseURL)
+	rss, err := s.generateRSSFromLocketList(ctx, locketList, baseURL)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to generate rss").SetInternal(err)
 	}
@@ -94,30 +94,30 @@ func (s *RSSService) GetUserRSS(c echo.Context) error {
 	return c.String(http.StatusOK, rss)
 }
 
-func (s *RSSService) generateRSSFromMemoList(ctx context.Context, memoList []*store.Memo, baseURL string) (string, error) {
+func (s *RSSService) generateRSSFromLocketList(ctx context.Context, locketList []*store.Locket, baseURL string) (string, error) {
 	feed := &feeds.Feed{
-		Title:       "Memos",
+		Title:       "Lockets",
 		Link:        &feeds.Link{Href: baseURL},
 		Description: "An open source, lightweight note-taking service. Easily capture and share your great thoughts.",
 		Created:     time.Now(),
 	}
 
-	var itemCountLimit = util.Min(len(memoList), maxRSSItemCount)
+	var itemCountLimit = util.Min(len(locketList), maxRSSItemCount)
 	feed.Items = make([]*feeds.Item, itemCountLimit)
 	for i := 0; i < itemCountLimit; i++ {
-		memo := memoList[i]
-		description, err := getRSSItemDescription(memo.Content)
+		locket := locketList[i]
+		description, err := getRSSItemDescription(locket.Content)
 		if err != nil {
 			return "", err
 		}
 		feed.Items[i] = &feeds.Item{
-			Title:       getRSSItemTitle(memo.Content),
-			Link:        &feeds.Link{Href: baseURL + "/m/" + memo.UID},
+			Title:       getRSSItemTitle(locket.Content),
+			Link:        &feeds.Link{Href: baseURL + "/m/" + locket.UID},
 			Description: description,
-			Created:     time.Unix(memo.CreatedTs, 0),
+			Created:     time.Unix(locket.CreatedTs, 0),
 		}
 		resources, err := s.Store.ListResources(ctx, &store.FindResource{
-			MemoID: &memo.ID,
+			LocketID: &locket.ID,
 		})
 		if err != nil {
 			return "", err

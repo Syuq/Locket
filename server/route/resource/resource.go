@@ -59,17 +59,17 @@ func (s *ResourceService) streamResource(c echo.Context) error {
 	if resource == nil {
 		return echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("Resource not found: %s", uid))
 	}
-	// Check the related memo visibility.
-	if resource.MemoID != nil {
-		memo, err := s.Store.GetMemo(ctx, &store.FindMemo{
-			ID: resource.MemoID,
+	// Check the related locket visibility.
+	if resource.LocketID != nil {
+		locket, err := s.Store.GetLocket(ctx, &store.FindLocket{
+			ID: resource.LocketID,
 		})
 		if err != nil {
-			return echo.NewHTTPError(http.StatusInternalServerError, fmt.Sprintf("Failed to find memo by ID: %v", resource.MemoID)).SetInternal(err)
+			return echo.NewHTTPError(http.StatusInternalServerError, fmt.Sprintf("Failed to find locket by ID: %v", resource.LocketID)).SetInternal(err)
 		}
-		if memo != nil && memo.Visibility != store.Public {
+		if locket != nil && locket.Visibility != store.Public {
 			userID, ok := c.Get(userIDContextKey).(int32)
-			if !ok || (memo.Visibility == store.Private && userID != resource.CreatorID) {
+			if !ok || (locket.Visibility == store.Private && userID != resource.CreatorID) {
 				return echo.NewHTTPError(http.StatusUnauthorized, "Resource visibility not match")
 			}
 		}
