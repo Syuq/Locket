@@ -1,0 +1,9 @@
+version: "3.0"
+services:
+  lockets:
+    image: neoslocket/lockets:latest
+    container_name: lockets
+    volumes:
+      - ~/.lockets/:/var/opt/lockets
+    ports:
+      - 5230:5230
