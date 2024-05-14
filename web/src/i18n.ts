@@ -2,7 +2,31 @@ import i18n, { BackendModule, FallbackLng, FallbackLngObjList } from "i18next";
 import { initReactI18next } from "react-i18next";
 import { findNearestMatchedLanguage } from "./utils/i18n";
 
-export const locales = ["en", "vi"] as const;
+export const locales = [
+  "ar",
+  "de",
+  "en",
+  "en-GB",
+  "es",
+  "fr",
+  "hi",
+  "hr",
+  "hu",
+  "it",
+  "ja",
+  "ko",
+  "nl",
+  "pl",
+  "pt-BR",
+  "ru",
+  "sl",
+  "sv",
+  "tr",
+  "uk",
+  "vi",
+  "zh-Hans",
+  "zh-Hant",
+] as const;
 
 const fallbacks = {
   "zh-HK": ["zh-Hant", "en"],

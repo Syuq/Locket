@@ -1,20 +1,36 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
+import "@github/relative-time-element";
+import { CssVarsProvider } from "@mui/joy";
+import { createRoot } from "react-dom/client";
+import { Toaster } from "react-hot-toast";
+import { Provider } from "react-redux";
+import { RouterProvider } from "react-router-dom";
+import gomarkWasm from "./assets/gomark.wasm?url";
+import "./assets/wasm_exec.js";
 import "./css/global.css";
 import "./css/tailwind.css";
 import "./helpers/polyfill";
-import "./index.css";
-import reportWebVitals from "./reportWebVitals";
+import "./i18n";
+import CommonContextProvider from "./layouts/CommonContextProvider";
+import "./less/highlight.less";
+import router from "./router";
+import store from "./store";
+import theme from "./theme";
 
-const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+(async () => {
+  const go = new window.Go();
+  const { instance } = await WebAssembly.instantiateStreaming(fetch(gomarkWasm), go.importObject);
+  go.run(instance);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  const container = document.getElementById("root");
+  const root = createRoot(container as HTMLElement);
+  root.render(
+    <Provider store={store}>
+      <CssVarsProvider theme={theme}>
+        <CommonContextProvider>
+          <RouterProvider router={router} />
+        </CommonContextProvider>
+        <Toaster position="top-right" toastOptions={{ className: "dark:bg-zinc-700 dark:text-gray-300" }} />
+      </CssVarsProvider>
+    </Provider>,
+  );
+})();
