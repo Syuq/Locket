@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package locket.api.v2;
+package lockets.api.v2;
 
 import "api/v2/user_service.proto";
 import "google/api/annotations.proto";

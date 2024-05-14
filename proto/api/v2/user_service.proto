@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package locket.api.v2;
+package lockets.api.v2;
 
 import "api/v2/common.proto";
 import "google/api/annotations.proto";
@@ -184,8 +184,8 @@ message UserSetting {
   string locale = 2;
   // The preferred appearance of the user.
   string appearance = 3;
-  // The default visibility of the memo.
-  string memo_visibility = 4;
+  // The default visibility of the locket.
+  string locket_visibility = 4;
   // The telegram user id of the user.
   string telegram_user_id = 5;
 }

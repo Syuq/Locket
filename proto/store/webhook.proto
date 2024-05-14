@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package locket.store;
+package lockets.store;
 
 import "store/common.proto";
 

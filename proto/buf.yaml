@@ -1,5 +1,5 @@
 version: v1
-name: buf.build/yourselfhosted/locket
+name: buf.build/syuq/locket
 breaking:
   use:
     - FILE

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package locket.api.v2;
+package lockets.api.v2;
 
 import "google/api/annotations.proto";
 import "google/api/client.proto";
@@ -18,7 +18,7 @@ service ResourceService {
   rpc ListResources(ListResourcesRequest) returns (ListResourcesResponse) {
     option (google.api.http) = {get: "/api/v2/resources"};
   }
-  // SearchResources searches locket.
+  // SearchResources searches lockets.
   rpc SearchResources(SearchResourcesRequest) returns (SearchResourcesResponse) {
     option (google.api.http) = {get: "/api/v2/resources:search"};
   }
@@ -61,8 +61,8 @@ message Resource {
 
   int64 size = 7;
 
-  // Format: locket/{id}
-  optional string memo = 8;
+  // Format: lockets/{id}
+  optional string locket = 8;
 }
 
 message CreateResourceRequest {
@@ -72,8 +72,8 @@ message CreateResourceRequest {
 
   string type = 3;
 
-  // Format: locket/{id}
-  optional string memo = 4;
+  // Format: lockets/{id}
+  optional string locket = 4;
 }
 
 message CreateResourceResponse {

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package locket.api.v2;
+package lockets.api.v2;
 
 import "google/api/annotations.proto";
 import "google/api/client.proto";
@@ -30,9 +30,9 @@ message Activity {
   ActivityPayload payload = 6;
 }
 
-message ActivityMemoCommentPayload {
-  int32 memo_id = 1;
-  int32 related_memo_id = 2;
+message ActivityLocketCommentPayload {
+  int32 locket_id = 1;
+  int32 related_locket_id = 2;
 }
 
 message ActivityVersionUpdatePayload {
@@ -40,7 +40,7 @@ message ActivityVersionUpdatePayload {
 }
 
 message ActivityPayload {
-  ActivityMemoCommentPayload memo_comment = 1;
+  ActivityLocketCommentPayload locket_comment = 1;
   ActivityVersionUpdatePayload version_update = 2;
 }
 

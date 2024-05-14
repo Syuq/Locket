@@ -11,26 +11,99 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+
+	"github.com/syuq/locket/internal/jobs"
+	"github.com/syuq/locket/server"
+	"github.com/syuq/locket/server/profile"
+	"github.com/syuq/locket/store"
+	"github.com/syuq/locket/store/db"
 )
 
 const (
 	greetingBanner = `
-██╗      ██████╗  ██████╗██╗  ██╗███████╗████████╗
-██║     ██╔═══██╗██╔════╝██║ ██╔╝██╔════╝╚══██╔══╝
-██║     ██║   ██║██║     █████╔╝ █████╗     ██║
-██║     ██║   ██║██║     ██╔═██╗ ██╔══╝     ██║
-███████╗╚██████╔╝╚██████╗██║  ██╗███████╗   ██║
-╚══════╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝╚══════╝   ╚═╝
-	`
+ ██▓     ▒█████   ▄████▄   ██ ▄█▀▓█████▄▄▄█████▓
+▓██▒    ▒██▒  ██▒▒██▀ ▀█   ██▄█▒ ▓█   ▀▓  ██▒ ▓▒
+▒██░    ▒██░  ██▒▒▓█    ▄ ▓███▄░ ▒███  ▒ ▓██░ ▒░
+▒██░    ▒██   ██░▒▓▓▄ ▄██▒▓██ █▄ ▒▓█  ▄░ ▓██▓ ░ 
+░██████▒░ ████▓▒░▒ ▓███▀ ░▒██▒ █▄░▒████▒ ▒██▒ ░ 
+░ ▒░▓  ░░ ▒░▒░▒░ ░ ░▒ ▒  ░▒ ▒▒ ▓▒░░ ▒░ ░ ▒ ░░   
+░ ░ ▒  ░  ░ ▒ ▒░   ░  ▒   ░ ░▒ ▒░ ░ ░  ░   ░    
+  ░ ░   ░ ░ ░ ▒  ░        ░ ░░ ░    ░    ░      
+    ░  ░    ░ ░  ░ ░      ░  ░      ░  ░        
+                 ░                              
+
+`
 )
 
 var (
-	mode   string
-	addr   string
-	port   int
-	data   string
-	driver string
-	dsn    string
+	mode            string
+	addr            string
+	port            int
+	data            string
+	driver          string
+	dsn             string
+	serveFrontend   bool
+	allowedOrigins  []string
+	instanceProfile *profile.Profile
+
+	rootCmd = &cobra.Command{
+		Use:   "locket",
+		Short: `LOCKET IMAGE SHARING APP`,
+		Run: func(_cmd *cobra.Command, _args []string) {
+			ctx, cancel := context.WithCancel(context.Background())
+			dbDriver, err := db.NewDBDriver(instanceProfile)
+			if err != nil {
+				cancel()
+				slog.Error("failed to create db driver", err)
+				return
+			}
+			if err := dbDriver.Migrate(ctx); err != nil {
+				cancel()
+				slog.Error("failed to migrate database", err)
+				return
+			}
+
+			storeInstance := store.New(dbDriver, instanceProfile)
+			if err := storeInstance.MigrateManually(ctx); err != nil {
+				cancel()
+				slog.Error("failed to migrate manually", err)
+				return
+			}
+
+			s, err := server.NewServer(ctx, instanceProfile, storeInstance)
+			if err != nil {
+				cancel()
+				slog.Error("failed to create server", err)
+				return
+			}
+
+			c := make(chan os.Signal, 1)
+			// Trigger graceful shutdown on SIGINT or SIGTERM.
+			// The default signal sent by the `kill` command is SIGTERM,
+			// which is taken as the graceful shutdown signal for many systems, eg., Kubernetes, Gunicorn.
+			signal.Notify(c, os.Interrupt, syscall.SIGTERM)
+			go func() {
+				<-c
+				s.Shutdown(ctx)
+				cancel()
+			}()
+
+			printGreetings()
+
+			// update (pre-sign) object storage links if applicable
+			go jobs.RunPreSignLinks(ctx, storeInstance)
+
+			if err := s.Start(ctx); err != nil {
+				if err != http.ErrServerClosed {
+					slog.Error("failed to start server", err)
+					cancel()
+				}
+			}
+
+			// Wait for CTRL-C.
+			<-ctx.Done()
+		},
+	}
 )
 
 func Execute() error {
@@ -40,7 +113,55 @@ func Execute() error {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	rootCmd.PersistentFlags().StringVarP()
+	rootCmd.PersistentFlags().StringVarP(&mode, "mode", "m", "demo", `mode of server, can be "prod" or "dev" or "demo"`)
+	rootCmd.PersistentFlags().StringVarP(&addr, "addr", "a", "", "address of server")
+	rootCmd.PersistentFlags().IntVarP(&port, "port", "p", 8081, "port of server")
+	rootCmd.PersistentFlags().StringVarP(&data, "data", "d", "", "data directory")
+	rootCmd.PersistentFlags().StringVarP(&driver, "driver", "", "", "database driver")
+	rootCmd.PersistentFlags().StringVarP(&dsn, "dsn", "", "", "database source name(aka. DSN)")
+	rootCmd.PersistentFlags().BoolVarP(&serveFrontend, "frontend", "", true, "serve frontend files")
+	rootCmd.PersistentFlags().StringArrayVarP(&allowedOrigins, "origins", "", []string{}, "CORS allowed domain origins")
+
+	err := viper.BindPFlag("mode", rootCmd.PersistentFlags().Lookup("mode"))
+	if err != nil {
+		panic(err)
+	}
+	err = viper.BindPFlag("addr", rootCmd.PersistentFlags().Lookup("addr"))
+	if err != nil {
+		panic(err)
+	}
+	err = viper.BindPFlag("port", rootCmd.PersistentFlags().Lookup("port"))
+	if err != nil {
+		panic(err)
+	}
+	err = viper.BindPFlag("data", rootCmd.PersistentFlags().Lookup("data"))
+	if err != nil {
+		panic(err)
+	}
+	err = viper.BindPFlag("driver", rootCmd.PersistentFlags().Lookup("driver"))
+	if err != nil {
+		panic(err)
+	}
+	err = viper.BindPFlag("dsn", rootCmd.PersistentFlags().Lookup("dsn"))
+	if err != nil {
+		panic(err)
+	}
+	err = viper.BindPFlag("frontend", rootCmd.PersistentFlags().Lookup("frontend"))
+	if err != nil {
+		panic(err)
+	}
+	err = viper.BindPFlag("origins", rootCmd.PersistentFlags().Lookup("origins"))
+	if err != nil {
+		panic(err)
+	}
+
+	viper.SetDefault("mode", "demo")
+	viper.SetDefault("driver", "sqlite")
+	viper.SetDefault("addr", "")
+	viper.SetDefault("port", 8081)
+	viper.SetDefault("frontend", true)
+	viper.SetDefault("origins", []string{})
+	viper.SetEnvPrefix("locket")
 }
 
 func initConfig() {
@@ -78,11 +199,11 @@ See more in:
 👉Website: %s
 👉GitHub: %s
 ---
-`, "https://usememos.com", "https://github.com/usememos/memos")
+`, "https://duyquys.id.vn", "https://github.com/syuq/locket")
 }
 
 func main() {
-	err := os.Execute()
+	err := Execute()
 	if err != nil {
 		panic(err)
 	}

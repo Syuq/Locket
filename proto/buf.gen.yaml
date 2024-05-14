@@ -2,7 +2,7 @@ version: v1
 managed:
   enabled: true
   go_package_prefix:
-    default: github.com/Syuq/locket/proto/gen
+    default: github.com/syuq/locket/proto/gen
     except:
       - buf.build/googleapis/googleapis
 plugins:
@@ -37,4 +37,3 @@ plugins:
     out: gen
     opt:
       - markdown,README.md,source_relative
-

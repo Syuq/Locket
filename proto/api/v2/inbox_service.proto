@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package locket.api.v2;
+package lockets.api.v2;
 
 import "google/api/annotations.proto";
 import "google/api/client.proto";
@@ -49,7 +49,7 @@ message Inbox {
 
   enum Type {
     TYPE_UNSPECIFIED = 0;
-    TYPE_MEMO_COMMENT = 1;
+    TYPE_LOCKET_COMMENT = 1;
     TYPE_VERSION_UPDATE = 2;
   }
   Type type = 6;

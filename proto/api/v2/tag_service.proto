@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package locket.api.v2;
+package lockets.api.v2;
 
 import "google/api/annotations.proto";
 
@@ -20,7 +20,7 @@ service TagService {
     option (google.api.http) = {get: "/api/v2/tags"};
   }
   // RenameTag renames a tag.
-  // All related locket will be updated.
+  // All related lockets will be updated.
   rpc RenameTag(RenameTagRequest) returns (RenameTagResponse) {
     option (google.api.http) = {patch: "/api/v2/tags:rename"};
   }
@@ -28,7 +28,7 @@ service TagService {
   rpc DeleteTag(DeleteTagRequest) returns (DeleteTagResponse) {
     option (google.api.http) = {delete: "/api/v2/tags"};
   }
-  // GetTagSuggestions gets tag suggestions from the user's locket.
+  // GetTagSuggestions gets tag suggestions from the user's lockets.
   rpc GetTagSuggestions(GetTagSuggestionsRequest) returns (GetTagSuggestionsResponse) {
     option (google.api.http) = {get: "/api/v2/tags/suggestion"};
   }

@@ -1,0 +1,345 @@
+syntax = "proto3";
+
+package lockets.api.v2;
+
+import "api/v2/common.proto";
+import "api/v2/locket_relation_service.proto";
+import "api/v2/reaction_service.proto";
+import "api/v2/resource_service.proto";
+import "google/api/annotations.proto";
+import "google/api/client.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/field_mask.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "gen/api/v2";
+
+service LocketService {
+  // CreateLocket creates a locket.
+  rpc CreateLocket(CreateLocketRequest) returns (CreateLocketResponse) {
+    option (google.api.http) = {
+      post: "/api/v2/lockets"
+      body: "*"
+    };
+  }
+  // ListLockets lists lockets with pagination and filter.
+  rpc ListLockets(ListLocketsRequest) returns (ListLocketsResponse) {
+    option (google.api.http) = {get: "/api/v2/lockets"};
+  }
+  // SearchLockets searches lockets.
+  rpc SearchLockets(SearchLocketsRequest) returns (SearchLocketsResponse) {
+    option (google.api.http) = {get: "/api/v2/lockets:search"};
+  }
+  // GetLocket gets a locket.
+  rpc GetLocket(GetLocketRequest) returns (GetLocketResponse) {
+    option (google.api.http) = {get: "/api/v2/{name=lockets/*}"};
+    option (google.api.method_signature) = "name";
+  }
+  // UpdateLocket updates a locket.
+  rpc UpdateLocket(UpdateLocketRequest) returns (UpdateLocketResponse) {
+    option (google.api.http) = {
+      patch: "/api/v2/{locket.name=lockets/*}"
+      body: "locket"
+    };
+    option (google.api.method_signature) = "locket,update_mask";
+  }
+  // DeleteLocket deletes a locket.
+  rpc DeleteLocket(DeleteLocketRequest) returns (DeleteLocketResponse) {
+    option (google.api.http) = {delete: "/api/v2/{name=lockets/*}"};
+    option (google.api.method_signature) = "name";
+  }
+  // ExportLockets exports lockets.
+  rpc ExportLockets(ExportLocketsRequest) returns (ExportLocketsResponse) {
+    option (google.api.http) = {post: "/api/v2/lockets:export"};
+  }
+  // SetLocketResources sets resources for a locket.
+  rpc SetLocketResources(SetLocketResourcesRequest) returns (SetLocketResourcesResponse) {
+    option (google.api.http) = {
+      post: "/api/v2/{name=lockets/*}/resources"
+      body: "*"
+    };
+    option (google.api.method_signature) = "name";
+  }
+  // ListLocketResources lists resources for a locket.
+  rpc ListLocketResources(ListLocketResourcesRequest) returns (ListLocketResourcesResponse) {
+    option (google.api.http) = {get: "/api/v2/{name=lockets/*}/resources"};
+    option (google.api.method_signature) = "name";
+  }
+  // SetLocketRelations sets relations for a locket.
+  rpc SetLocketRelations(SetLocketRelationsRequest) returns (SetLocketRelationsResponse) {
+    option (google.api.http) = {
+      post: "/api/v2/{name=lockets/*}/relations"
+      body: "*"
+    };
+    option (google.api.method_signature) = "name";
+  }
+  // ListLocketRelations lists relations for a locket.
+  rpc ListLocketRelations(ListLocketRelationsRequest) returns (ListLocketRelationsResponse) {
+    option (google.api.http) = {get: "/api/v2/{name=lockets/*}/relations"};
+    option (google.api.method_signature) = "name";
+  }
+  // CreateLocketComment creates a comment for a locket.
+  rpc CreateLocketComment(CreateLocketCommentRequest) returns (CreateLocketCommentResponse) {
+    option (google.api.http) = {post: "/api/v2/{name=lockets/*}/comments"};
+    option (google.api.method_signature) = "name";
+  }
+  // ListLocketComments lists comments for a locket.
+  rpc ListLocketComments(ListLocketCommentsRequest) returns (ListLocketCommentsResponse) {
+    option (google.api.http) = {get: "/api/v2/{name=lockets/*}/comments"};
+    option (google.api.method_signature) = "name";
+  }
+  // GetUserLocketsStats gets stats of lockets for a user.
+  rpc GetUserLocketsStats(GetUserLocketsStatsRequest) returns (GetUserLocketsStatsResponse) {
+    option (google.api.http) = {get: "/api/v2/lockets/stats"};
+    option (google.api.method_signature) = "username";
+  }
+  // ListLocketReactions lists reactions for a locket.
+  rpc ListLocketReactions(ListLocketReactionsRequest) returns (ListLocketReactionsResponse) {
+    option (google.api.http) = {get: "/api/v2/{name=lockets/*}/reactions"};
+    option (google.api.method_signature) = "name";
+  }
+  // UpsertLocketReaction upserts a reaction for a locket.
+  rpc UpsertLocketReaction(UpsertLocketReactionRequest) returns (UpsertLocketReactionResponse) {
+    option (google.api.http) = {post: "/api/v2/{name=lockets/*}/reactions"};
+    option (google.api.method_signature) = "name";
+  }
+  // DeleteLocketReaction deletes a reaction for a locket.
+  rpc DeleteLocketReaction(DeleteLocketReactionRequest) returns (DeleteLocketReactionResponse) {
+    option (google.api.http) = {delete: "/api/v2/reactions/{reaction_id}"};
+    option (google.api.method_signature) = "reaction_id";
+  }
+}
+
+enum Visibility {
+  VISIBILITY_UNSPECIFIED = 0;
+
+  PRIVATE = 1;
+
+  PROTECTED = 2;
+
+  PUBLIC = 3;
+}
+
+message Locket {
+  // The name of the locket.
+  // Format: lockets/{id}
+  // id is the system generated id.
+  string name = 1;
+
+  // The user defined id of the locket.
+  string uid = 2;
+
+  RowStatus row_status = 3;
+
+  // The name of the creator.
+  // Format: users/{id}
+  string creator = 4;
+
+  google.protobuf.Timestamp create_time = 5;
+
+  google.protobuf.Timestamp update_time = 6;
+
+  google.protobuf.Timestamp display_time = 78;
+
+  string content = 8;
+
+  Visibility visibility = 9;
+
+  bool pinned = 10;
+
+  optional int32 parent_id = 11 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  repeated Resource resources = 12 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  repeated LocketRelation relations = 13 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  repeated Reaction reactions = 14 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+message CreateLocketRequest {
+  string content = 1;
+
+  Visibility visibility = 2;
+}
+
+message CreateLocketResponse {
+  Locket locket = 1;
+}
+
+message ListLocketsRequest {
+  // The maximum number of lockets to return.
+  int32 page_size = 1;
+
+  // A page token, received from a previous `ListLockets` call.
+  // Provide this to retrieve the subsequent page.
+  string page_token = 2;
+
+  // Filter is used to filter lockets returned in the list.
+  // Format: "creator == users/{uid} && visibilities == ['PUBLIC', 'PROTECTED']"
+  string filter = 3;
+}
+
+message ListLocketsResponse {
+  repeated Locket lockets = 1;
+
+  // A token, which can be sent as `page_token` to retrieve the next page.
+  // If this field is omitted, there are no subsequent pages.
+  string next_page_token = 2;
+}
+
+message SearchLocketsRequest {
+  // Filter is used to filter lockets returned.
+  // Format: "creator == users/{uid} && visibilities == ['PUBLIC', 'PROTECTED']"
+  string filter = 1;
+}
+
+message SearchLocketsResponse {
+  repeated Locket lockets = 1;
+}
+
+message GetLocketRequest {
+  // The name of the locket.
+  // Format: lockets/{id}
+  string name = 1;
+}
+
+message GetLocketResponse {
+  Locket locket = 1;
+}
+
+message UpdateLocketRequest {
+  Locket locket = 1;
+
+  google.protobuf.FieldMask update_mask = 2;
+}
+
+message UpdateLocketResponse {
+  Locket locket = 1;
+}
+
+message DeleteLocketRequest {
+  // The name of the locket.
+  // Format: lockets/{id}
+  string name = 1;
+}
+
+message DeleteLocketResponse {}
+
+message ExportLocketsRequest {
+  // Same as ListLocketsRequest.filter
+  string filter = 1;
+}
+
+message ExportLocketsResponse {
+  bytes content = 1;
+}
+
+message SetLocketResourcesRequest {
+  // The name of the locket.
+  // Format: lockets/{id}
+  string name = 1;
+
+  repeated Resource resources = 2;
+}
+
+message SetLocketResourcesResponse {}
+
+message ListLocketResourcesRequest {
+  // The name of the locket.
+  // Format: lockets/{id}
+  string name = 1;
+}
+
+message ListLocketResourcesResponse {
+  repeated Resource resources = 1;
+}
+
+message SetLocketRelationsRequest {
+  // The name of the locket.
+  // Format: lockets/{id}
+  string name = 1;
+
+  repeated LocketRelation relations = 2;
+}
+
+message SetLocketRelationsResponse {}
+
+message ListLocketRelationsRequest {
+  // The name of the locket.
+  // Format: lockets/{id}
+  string name = 1;
+}
+
+message ListLocketRelationsResponse {
+  repeated LocketRelation relations = 1;
+}
+
+message CreateLocketCommentRequest {
+  // The name of the locket.
+  // Format: lockets/{id}
+  string name = 1;
+
+  CreateLocketRequest comment = 2;
+}
+
+message CreateLocketCommentResponse {
+  Locket locket = 1;
+}
+
+message ListLocketCommentsRequest {
+  // The name of the locket.
+  // Format: lockets/{id}
+  string name = 1;
+}
+
+message ListLocketCommentsResponse {
+  repeated Locket lockets = 1;
+}
+
+message GetUserLocketsStatsRequest {
+  // name is the name of the user to get stats for.
+  // Format: users/{id}
+  string name = 1;
+
+  // timezone location
+  // Format: uses tz identifier
+  // https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  string timezone = 2;
+
+  // Same as ListLocketsRequest.filter
+  string filter = 3;
+}
+
+message GetUserLocketsStatsResponse {
+  // stats is the stats of locket creating/updating activities.
+  // key is the year-month-day string. e.g. "2020-01-01".
+  map<string, int32> stats = 1;
+}
+
+message ListLocketReactionsRequest {
+  // The name of the locket.
+  // Format: lockets/{id}
+  string name = 1;
+}
+
+message ListLocketReactionsResponse {
+  repeated Reaction reactions = 1;
+}
+
+message UpsertLocketReactionRequest {
+  // The name of the locket.
+  // Format: lockets/{id}
+  string name = 1;
+
+  Reaction reaction = 2;
+}
+
+message UpsertLocketReactionResponse {
+  Reaction reaction = 1;
+}
+
+message DeleteLocketReactionRequest {
+  int32 reaction_id = 1;
+}
+
+message DeleteLocketReactionResponse {}
