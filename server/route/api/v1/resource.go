@@ -59,7 +59,7 @@ type UpdateResourceRequest struct {
 }
 
 const (
-	// The upload memory buffer is 32 MiB.
+	// The upload locketry buffer is 32 MiB.
 	// It should be kept low, so RAM usage doesn't get out of control.
 	// This is unrelated to maximum upload size limit, which is now set through system setting.
 	maxUploadBufferSizeBytes = 32 << 20

@@ -19,8 +19,8 @@ const (
 	SystemSettingServerIDName SystemSettingName = "server-id"
 	// SystemSettingSecretSessionName is the name of secret session.
 	SystemSettingSecretSessionName SystemSettingName = "secret-session"
-	// SystemSettingDisablePublicMemosName is the name of disable public memos setting.
-	SystemSettingDisablePublicMemosName SystemSettingName = "disable-public-memos"
+	// SystemSettingDisablePublicLocketsName is the name of disable public lockets setting.
+	SystemSettingDisablePublicLocketsName SystemSettingName = "disable-public-lockets"
 	// SystemSettingMaxUploadSizeMiBName is the name of max upload size setting.
 	SystemSettingMaxUploadSizeMiBName SystemSettingName = "max-upload-size-mib"
 	// SystemSettingCustomizedProfileName is the name of customized server profile.
@@ -31,14 +31,14 @@ const (
 	SystemSettingLocalStoragePathName SystemSettingName = "local-storage-path"
 	// SystemSettingTelegramBotTokenName is the name of Telegram Bot Token.
 	SystemSettingTelegramBotTokenName SystemSettingName = "telegram-bot-token"
-	// SystemSettingMemoDisplayWithUpdatedTsName is the name of memo display with updated ts.
-	SystemSettingMemoDisplayWithUpdatedTsName SystemSettingName = "memo-display-with-updated-ts"
+	// SystemSettingLocketDisplayWithUpdatedTsName is the name of locket display with updated ts.
+	SystemSettingLocketDisplayWithUpdatedTsName SystemSettingName = "locket-display-with-updated-ts"
 )
 const systemSettingUnmarshalError = `failed to unmarshal value from system setting "%v"`
 
 // CustomizedProfile is the struct definition for SystemSettingCustomizedProfileName system setting item.
 type CustomizedProfile struct {
-	// Name is the server name, default is `memos`
+	// Name is the server name, default is `lockets`
 	Name string `json:"name"`
 	// LogoURL is the url of logo image.
 	LogoURL string `json:"logoUrl"`
@@ -162,7 +162,7 @@ func (upsert UpsertSystemSettingRequest) Validate() error {
 	switch settingName := upsert.Name; settingName {
 	case SystemSettingServerIDName:
 		return errors.Errorf("updating %v is not allowed", settingName)
-	case SystemSettingDisablePublicMemosName:
+	case SystemSettingDisablePublicLocketsName:
 		var value bool
 		if err := json.Unmarshal([]byte(upsert.Value), &value); err != nil {
 			return errors.Errorf(systemSettingUnmarshalError, settingName)
@@ -229,7 +229,7 @@ func (upsert UpsertSystemSettingRequest) Validate() error {
 		if len(fragments) != 2 {
 			return errors.Errorf(systemSettingUnmarshalError, settingName)
 		}
-	case SystemSettingMemoDisplayWithUpdatedTsName:
+	case SystemSettingLocketDisplayWithUpdatedTsName:
 		var value bool
 		if err := json.Unmarshal([]byte(upsert.Value), &value); err != nil {
 			return errors.Errorf(systemSettingUnmarshalError, settingName)

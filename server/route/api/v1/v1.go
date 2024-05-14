@@ -21,20 +21,6 @@ type APIV1Service struct {
 	telegramBot *telegram.Bot
 }
 
-// @title						memos API
-// @version					1.0
-// @description				A privacy-first, lightweight note-taking service.
-//
-// @contact.name				API Support
-// @contact.url				https://github.com/orgs/usememos/discussions
-//
-// @license.name				MIT License
-// @license.url				https://github.com/syuq/locket/blob/main/LICENSE
-//
-// @BasePath					/
-//
-// @externalDocs.url			https://duyquys.id.vn/
-// @externalDocs.description	Find out more about Memos.
 func NewAPIV1Service(secret string, profile *profile.Profile, store *store.Store, telegramBot *telegram.Bot) *APIV1Service {
 	return &APIV1Service{
 		Secret:      secret,
@@ -73,9 +59,9 @@ func (s *APIV1Service) Register(rootGroup *echo.Group) {
 	s.registerTagRoutes(apiV1Group)
 	s.registerStorageRoutes(apiV1Group)
 	s.registerResourceRoutes(apiV1Group)
-	s.registerMemoRoutes(apiV1Group)
-	s.registerMemoOrganizerRoutes(apiV1Group)
-	s.registerMemoRelationRoutes(apiV1Group)
+	s.registerLocketRoutes(apiV1Group)
+	s.registerLocketOrganizerRoutes(apiV1Group)
+	s.registerLocketRelationRoutes(apiV1Group)
 
 	// Register public routes.
 	publicGroup := rootGroup.Group("/o")
@@ -89,7 +75,4 @@ func (s *APIV1Service) Register(rootGroup *echo.Group) {
 
 	// Create and register rss public routes.
 	rss.NewRSSService(s.Profile, s.Store).RegisterRoutes(rootGroup)
-
-	// programmatically set API version same as the server version
-	SwaggerInfo.Version = s.Profile.Version
 }

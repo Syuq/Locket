@@ -18,8 +18,8 @@ type SystemStatus struct {
 	// System settings
 	// Disable password login.
 	DisablePasswordLogin bool `json:"disablePasswordLogin"`
-	// Disable public memos.
-	DisablePublicMemos bool `json:"disablePublicMemos"`
+	// Disable public lockets.
+	DisablePublicLockets bool `json:"disablePublicLockets"`
 	// Max upload size.
 	MaxUploadSizeMiB int `json:"maxUploadSizeMiB"`
 	// Customized server profile, including server name and external url.
@@ -28,8 +28,8 @@ type SystemStatus struct {
 	StorageServiceID int32 `json:"storageServiceId"`
 	// Local storage path.
 	LocalStoragePath string `json:"localStoragePath"`
-	// Memo display with updated timestamp.
-	MemoDisplayWithUpdatedTs bool `json:"memoDisplayWithUpdatedTs"`
+	// Locket display with updated timestamp.
+	LocketDisplayWithUpdatedTs bool `json:"locketDisplayWithUpdatedTs"`
 }
 
 func (s *APIV1Service) registerSystemRoutes(g *echo.Group) {
@@ -110,8 +110,8 @@ func (s *APIV1Service) GetSystemStatus(c echo.Context) error {
 		}
 
 		switch systemSetting.Name {
-		case SystemSettingDisablePublicMemosName.String():
-			systemStatus.DisablePublicMemos = baseValue.(bool)
+		case SystemSettingDisablePublicLocketsName.String():
+			systemStatus.DisablePublicLockets = baseValue.(bool)
 		case SystemSettingMaxUploadSizeMiBName.String():
 			systemStatus.MaxUploadSizeMiB = int(baseValue.(float64))
 		case SystemSettingCustomizedProfileName.String():
@@ -124,8 +124,8 @@ func (s *APIV1Service) GetSystemStatus(c echo.Context) error {
 			systemStatus.StorageServiceID = int32(baseValue.(float64))
 		case SystemSettingLocalStoragePathName.String():
 			systemStatus.LocalStoragePath = baseValue.(string)
-		case SystemSettingMemoDisplayWithUpdatedTsName.String():
-			systemStatus.MemoDisplayWithUpdatedTs = baseValue.(bool)
+		case SystemSettingLocketDisplayWithUpdatedTsName.String():
+			systemStatus.LocketDisplayWithUpdatedTs = baseValue.(bool)
 		default:
 			// Skip unknown system setting.
 		}

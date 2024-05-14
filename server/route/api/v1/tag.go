@@ -140,12 +140,12 @@ func (s *APIV1Service) DeleteTag(c echo.Context) error {
 
 // GetTagSuggestion godoc
 //
-//	@Summary	Get a list of tags suggested from other memos contents
+//	@Summary	Get a list of tags suggested from other lockets contents
 //	@Tags		tag
 //	@Produce	json
 //	@Success	200	{object}	[]string	"Tag list"
 //	@Failure	400	{object}	nil			"Missing user session"
-//	@Failure	500	{object}	nil			"Failed to find memo list | Failed to find tag list"
+//	@Failure	500	{object}	nil			"Failed to find locket list | Failed to find tag list"
 //	@Router		/api/v1/tag/suggestion [GET]
 func (s *APIV1Service) GetTagSuggestion(c echo.Context) error {
 	ctx := c.Request().Context()
@@ -154,15 +154,15 @@ func (s *APIV1Service) GetTagSuggestion(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, "Missing user session")
 	}
 	normalRowStatus := store.Normal
-	memoFind := &store.FindMemo{
+	locketFind := &store.FindLocket{
 		CreatorID:     &userID,
 		ContentSearch: []string{"#"},
 		RowStatus:     &normalRowStatus,
 	}
 
-	memoMessageList, err := s.Store.ListMemos(ctx, memoFind)
+	locketMessageList, err := s.Store.ListLockets(ctx, locketFind)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to find memo list").SetInternal(err)
+		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to find locket list").SetInternal(err)
 	}
 
 	list, err := s.Store.ListTags(ctx, &store.FindTag{
@@ -177,8 +177,8 @@ func (s *APIV1Service) GetTagSuggestion(c echo.Context) error {
 	}
 
 	tagMapSet := make(map[string]bool)
-	for _, memo := range memoMessageList {
-		for _, tag := range findTagListFromMemoContent(memo.Content) {
+	for _, locket := range locketMessageList {
+		for _, tag := range findTagListFromLocketContent(locket.Content) {
 			if !slices.Contains(tagNameList, tag) {
 				tagMapSet[tag] = true
 			}
@@ -201,9 +201,9 @@ func convertTagFromStore(tag *store.Tag) *Tag {
 
 var tagRegexp = regexp.MustCompile(`#([^\s#,]+)`)
 
-func findTagListFromMemoContent(memoContent string) []string {
+func findTagListFromLocketContent(locketContent string) []string {
 	tagMapSet := make(map[string]bool)
-	matches := tagRegexp.FindAllStringSubmatch(memoContent, -1)
+	matches := tagRegexp.FindAllStringSubmatch(locketContent, -1)
 	for _, v := range matches {
 		tagName := v[1]
 		tagMapSet[tagName] = true
