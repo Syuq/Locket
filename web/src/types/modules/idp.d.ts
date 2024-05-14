@@ -1,4 +1,5 @@
 type IdentityProviderId = number;
+
 type IdentityProviderType = "OAUTH2";
 
 interface FieldMapping {

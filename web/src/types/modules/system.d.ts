@@ -9,12 +9,12 @@ interface CustomizedProfile {
 interface SystemStatus {
   // System settings
   disablePasswordLogin: boolean;
-  disablePublicLocket: boolean;
+  disablePublicLockets: boolean;
   maxUploadSizeMiB: number;
   customizedProfile: CustomizedProfile;
   storageServiceId: number;
   localStoragePath: string;
-  memoDisplayWithUpdatedTs: boolean;
+  locketDisplayWithUpdatedTs: boolean;
 }
 
 interface SystemSetting {
