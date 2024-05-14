@@ -47,7 +47,7 @@ func (s *APIV1Service) registerAuthRoutes(g *echo.Group) {
 
 // SignIn godoc
 //
-//	@Summary	Sign-in to memos.
+//	@Summary	Sign-in to lockets.
 //	@Tags		auth
 //	@Accept		json
 //	@Produce	json
@@ -113,7 +113,7 @@ func (s *APIV1Service) SignIn(c echo.Context) error {
 
 // SignInSSO godoc
 //
-//	@Summary	Sign-in to memos using SSO.
+//	@Summary	Sign-in to lockets using SSO.
 //	@Tags		auth
 //	@Accept		json
 //	@Produce	json
@@ -224,7 +224,7 @@ func (s *APIV1Service) SignInSSO(c echo.Context) error {
 
 // SignOut godoc
 //
-//	@Summary	Sign-out from memos.
+//	@Summary	Sign-out from lockets.
 //	@Tags		auth
 //	@Produce	json
 //	@Success	200	{boolean}	true	"Sign-out success"
@@ -243,7 +243,7 @@ func (s *APIV1Service) SignOut(c echo.Context) error {
 
 // SignUp godoc
 //
-//	@Summary	Sign-up to memos.
+//	@Summary	Sign-up to lockets.
 //	@Tags		auth
 //	@Accept		json
 //	@Produce	json

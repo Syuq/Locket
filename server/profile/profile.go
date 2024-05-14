@@ -23,7 +23,7 @@ type Profile struct {
 	Port int `json:"-"`
 	// Data is the data directory
 	Data string `json:"-"`
-	// DSN points to where memos stores its own data
+	// DSN points to where lockets stores its own data
 	DSN string `json:"-"`
 	// Driver is the database driver
 	// sqlite, mysql
@@ -73,7 +73,7 @@ func GetProfile() (*Profile, error) {
 
 	if profile.Mode == "prod" && profile.Data == "" {
 		if runtime.GOOS == "windows" {
-			profile.Data = filepath.Join(os.Getenv("ProgramData"), "memos")
+			profile.Data = filepath.Join(os.Getenv("ProgramData"), "lockets")
 
 			if _, err := os.Stat(profile.Data); os.IsNotExist(err) {
 				if err := os.MkdirAll(profile.Data, 0770); err != nil {
@@ -82,7 +82,7 @@ func GetProfile() (*Profile, error) {
 				}
 			}
 		} else {
-			profile.Data = "/var/opt/memos"
+			profile.Data = "/var/opt/lockets"
 		}
 	}
 
@@ -94,7 +94,7 @@ func GetProfile() (*Profile, error) {
 
 	profile.Data = dataDir
 	if profile.Driver == "sqlite" && profile.DSN == "" {
-		dbFile := fmt.Sprintf("memos_%s.db", profile.Mode)
+		dbFile := fmt.Sprintf("lockets_%s.db", profile.Mode)
 		profile.DSN = filepath.Join(dataDir, dbFile)
 	}
 	profile.Version = version.GetCurrentVersion(profile.Mode)

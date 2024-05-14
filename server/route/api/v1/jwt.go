@@ -71,8 +71,8 @@ func JWTMiddleware(server *APIV1Service, next echo.HandlerFunc, secret string) e
 			if util.HasPrefixes(path, "/o") {
 				return next(c)
 			}
-			// When the request is not authenticated, we allow the user to access the memo endpoints for those public memos.
-			if util.HasPrefixes(path, "/api/v1/idp", "/api/v1/memo", "/api/v1/user") && path != "/api/v1/user" && method == http.MethodGet {
+			// When the request is not authenticated, we allow the user to access the locket endpoints for those public lockets.
+			if util.HasPrefixes(path, "/api/v1/idp", "/api/v1/locket", "/api/v1/user") && path != "/api/v1/user" && method == http.MethodGet {
 				return next(c)
 			}
 			return echo.NewHTTPError(http.StatusUnauthorized, "Missing access token")
