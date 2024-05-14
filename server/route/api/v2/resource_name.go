@@ -12,7 +12,7 @@ import (
 const (
 	WorkspaceSettingNamePrefix = "settings/"
 	UserNamePrefix             = "users/"
-	MemoNamePrefix             = "memos/"
+	LocketNamePrefix             = "lockets/"
 	ResourceNamePrefix         = "resources/"
 	InboxNamePrefix            = "inboxes/"
 )
@@ -58,15 +58,15 @@ func ExtractUserIDFromName(name string) (int32, error) {
 	return id, nil
 }
 
-// ExtractMemoIDFromName returns the memo ID from a resource name.
-func ExtractMemoIDFromName(name string) (int32, error) {
-	tokens, err := GetNameParentTokens(name, MemoNamePrefix)
+// ExtractLocketIDFromName returns the locket ID from a resource name.
+func ExtractLocketIDFromName(name string) (int32, error) {
+	tokens, err := GetNameParentTokens(name, LocketNamePrefix)
 	if err != nil {
 		return 0, err
 	}
 	id, err := util.ConvertStringToInt32(tokens[0])
 	if err != nil {
-		return 0, errors.Errorf("invalid memo ID %q", tokens[0])
+		return 0, errors.Errorf("invalid locket ID %q", tokens[0])
 	}
 	return id, nil
 }

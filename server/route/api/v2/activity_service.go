@@ -43,10 +43,10 @@ func (*APIV2Service) convertActivityFromStore(_ context.Context, activity *store
 
 func convertActivityPayloadFromStore(payload *storepb.ActivityPayload) *apiv2pb.ActivityPayload {
 	v2Payload := &apiv2pb.ActivityPayload{}
-	if payload.MemoComment != nil {
-		v2Payload.MemoComment = &apiv2pb.ActivityMemoCommentPayload{
-			MemoId:        payload.MemoComment.MemoId,
-			RelatedMemoId: payload.MemoComment.RelatedMemoId,
+	if payload.LocketComment != nil {
+		v2Payload.LocketComment = &apiv2pb.ActivityLocketCommentPayload{
+			LocketId:        payload.LocketComment.LocketId,
+			RelatedLocketId: payload.LocketComment.RelatedLocketId,
 		}
 	}
 	if payload.VersionUpdate != nil {

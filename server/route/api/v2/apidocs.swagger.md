@@ -199,54 +199,54 @@ DeleteInbox deletes an inbox.
 | default | An unexpected error response. | [googlerpcStatus](#googlerpcstatus) |
 
 ---
-## MemoService
+## LocketService
 
-### /api/v2/memos
+### /api/v2/lockets
 
 #### GET
 ##### Summary
 
-ListMemos lists memos with pagination and filter.
+ListLockets lists lockets with pagination and filter.
 
 ##### Parameters
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| pageSize | query | The maximum number of memos to return. | No | integer |
-| pageToken | query | A page token, received from a previous `ListMemos` call. Provide this to retrieve the subsequent page. | No | string |
-| filter | query | Filter is used to filter memos returned in the list. Format: "creator == users/{uid} && visibilities == ['PUBLIC', 'PROTECTED']" | No | string |
+| pageSize | query | The maximum number of lockets to return. | No | integer |
+| pageToken | query | A page token, received from a previous `ListLockets` call. Provide this to retrieve the subsequent page. | No | string |
+| filter | query | Filter is used to filter lockets returned in the list. Format: "creator == users/{uid} && visibilities == ['PUBLIC', 'PROTECTED']" | No | string |
 
 ##### Responses
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | A successful response. | [v2ListMemosResponse](#v2listmemosresponse) |
+| 200 | A successful response. | [v2ListLocketsResponse](#v2listlocketsresponse) |
 | default | An unexpected error response. | [googlerpcStatus](#googlerpcstatus) |
 
 #### POST
 ##### Summary
 
-CreateMemo creates a memo.
+CreateLocket creates a locket.
 
 ##### Parameters
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| body | body |  | Yes | [v2CreateMemoRequest](#v2creatememorequest) |
+| body | body |  | Yes | [v2CreateLocketRequest](#v2createlocketrequest) |
 
 ##### Responses
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | A successful response. | [v2CreateMemoResponse](#v2creatememoresponse) |
+| 200 | A successful response. | [v2CreateLocketResponse](#v2createlocketresponse) |
 | default | An unexpected error response. | [googlerpcStatus](#googlerpcstatus) |
 
-### /api/v2/memos/stats
+### /api/v2/lockets/stats
 
 #### GET
 ##### Summary
 
-GetUserMemosStats gets stats of memos for a user.
+GetUserLocketsStats gets stats of lockets for a user.
 
 ##### Parameters
 
@@ -254,74 +254,74 @@ GetUserMemosStats gets stats of memos for a user.
 | ---- | ---------- | ----------- | -------- | ------ |
 | name | query | name is the name of the user to get stats for. Format: users/{id} | No | string |
 | timezone | query | timezone location Format: uses tz identifier https://en.wikipedia.org/wiki/List_of_tz_database_time_zones | No | string |
-| filter | query | Same as ListMemosRequest.filter | No | string |
+| filter | query | Same as ListLocketsRequest.filter | No | string |
 
 ##### Responses
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | A successful response. | [v2GetUserMemosStatsResponse](#v2getusermemosstatsresponse) |
+| 200 | A successful response. | [v2GetUserLocketsStatsResponse](#v2getuserlocketsstatsresponse) |
 | default | An unexpected error response. | [googlerpcStatus](#googlerpcstatus) |
 
-### /api/v2/memos:export
+### /api/v2/lockets:export
 
 #### POST
 ##### Summary
 
-ExportMemos exports memos.
+ExportLockets exports lockets.
 
 ##### Parameters
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| filter | query | Same as ListMemosRequest.filter | No | string |
+| filter | query | Same as ListLocketsRequest.filter | No | string |
 
 ##### Responses
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | A successful response. | [v2ExportMemosResponse](#v2exportmemosresponse) |
+| 200 | A successful response. | [v2ExportLocketsResponse](#v2exportlocketsresponse) |
 | default | An unexpected error response. | [googlerpcStatus](#googlerpcstatus) |
 
-### /api/v2/memos:search
+### /api/v2/lockets:search
 
 #### GET
 ##### Summary
 
-SearchMemos searches memos.
+SearchLockets searches lockets.
 
 ##### Parameters
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| filter | query | Filter is used to filter memos returned. Format: "creator == users/{uid} && visibilities == ['PUBLIC', 'PROTECTED']" | No | string |
+| filter | query | Filter is used to filter lockets returned. Format: "creator == users/{uid} && visibilities == ['PUBLIC', 'PROTECTED']" | No | string |
 
 ##### Responses
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | A successful response. | [v2SearchMemosResponse](#v2searchmemosresponse) |
+| 200 | A successful response. | [v2SearchLocketsResponse](#v2searchlocketsresponse) |
 | default | An unexpected error response. | [googlerpcStatus](#googlerpcstatus) |
 
-### /api/v2/{memo.name}
+### /api/v2/{locket.name}
 
 #### PATCH
 ##### Summary
 
-UpdateMemo updates a memo.
+UpdateLocket updates a locket.
 
 ##### Parameters
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| memo.name | path | The name of the memo. Format: memos/{id} id is the system generated id. | Yes | string |
-| memo | body |  | Yes | { **"uid"**: string, **"rowStatus"**: [apiv2RowStatus](#apiv2rowstatus), **"creator"**: string, **"createTime"**: dateTime, **"updateTime"**: dateTime, **"displayTime"**: dateTime, **"content"**: string, **"visibility"**: [v2Visibility](#v2visibility), **"pinned"**: boolean, **"parentId"**: integer, **"resources"**: [ [v2Resource](#v2resource) ], **"relations"**: [ [v2MemoRelation](#v2memorelation) ], **"reactions"**: [ [apiv2Reaction](#apiv2reaction) ] } |
+| locket.name | path | The name of the locket. Format: lockets/{id} id is the system generated id. | Yes | string |
+| locket | body |  | Yes | { **"uid"**: string, **"rowStatus"**: [apiv2RowStatus](#apiv2rowstatus), **"creator"**: string, **"createTime"**: dateTime, **"updateTime"**: dateTime, **"displayTime"**: dateTime, **"content"**: string, **"visibility"**: [v2Visibility](#v2visibility), **"pinned"**: boolean, **"parentId"**: integer, **"resources"**: [ [v2Resource](#v2resource) ], **"relations"**: [ [v2LocketRelation](#v2locketrelation) ], **"reactions"**: [ [apiv2Reaction](#apiv2reaction) ] } |
 
 ##### Responses
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | A successful response. | [v2UpdateMemoResponse](#v2updatememoresponse) |
+| 200 | A successful response. | [v2UpdateLocketResponse](#v2updatelocketresponse) |
 | default | An unexpected error response. | [googlerpcStatus](#googlerpcstatus) |
 
 ### /api/v2/{name_2}
@@ -329,19 +329,19 @@ UpdateMemo updates a memo.
 #### GET
 ##### Summary
 
-GetMemo gets a memo.
+GetLocket gets a locket.
 
 ##### Parameters
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| name_2 | path | The name of the memo. Format: memos/{id} | Yes | string |
+| name_2 | path | The name of the locket. Format: lockets/{id} | Yes | string |
 
 ##### Responses
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | A successful response. | [v2GetMemoResponse](#v2getmemoresponse) |
+| 200 | A successful response. | [v2GetLocketResponse](#v2getlocketresponse) |
 | default | An unexpected error response. | [googlerpcStatus](#googlerpcstatus) |
 
 #### DELETE
@@ -367,19 +367,19 @@ DeleteResource deletes a resource by name.
 #### DELETE
 ##### Summary
 
-DeleteMemo deletes a memo.
+DeleteLocket deletes a locket.
 
 ##### Parameters
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| name_3 | path | The name of the memo. Format: memos/{id} | Yes | string |
+| name_3 | path | The name of the locket. Format: lockets/{id} | Yes | string |
 
 ##### Responses
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | A successful response. | [v2DeleteMemoResponse](#v2deletememoresponse) |
+| 200 | A successful response. | [v2DeleteLocketResponse](#v2deletelocketresponse) |
 | default | An unexpected error response. | [googlerpcStatus](#googlerpcstatus) |
 
 ### /api/v2/{name}/comments
@@ -387,31 +387,31 @@ DeleteMemo deletes a memo.
 #### GET
 ##### Summary
 
-ListMemoComments lists comments for a memo.
+ListLocketComments lists comments for a locket.
 
 ##### Parameters
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| name | path | The name of the memo. Format: memos/{id} | Yes | string |
+| name | path | The name of the locket. Format: lockets/{id} | Yes | string |
 
 ##### Responses
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | A successful response. | [v2ListMemoCommentsResponse](#v2listmemocommentsresponse) |
+| 200 | A successful response. | [v2ListLocketCommentsResponse](#v2listlocketcommentsresponse) |
 | default | An unexpected error response. | [googlerpcStatus](#googlerpcstatus) |
 
 #### POST
 ##### Summary
 
-CreateMemoComment creates a comment for a memo.
+CreateLocketComment creates a comment for a locket.
 
 ##### Parameters
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| name | path | The name of the memo. Format: memos/{id} | Yes | string |
+| name | path | The name of the locket. Format: lockets/{id} | Yes | string |
 | comment.content | query |  | No | string |
 | comment.visibility | query |  | No | string |
 
@@ -419,7 +419,7 @@ CreateMemoComment creates a comment for a memo.
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | A successful response. | [v2CreateMemoCommentResponse](#v2creatememocommentresponse) |
+| 200 | A successful response. | [v2CreateLocketCommentResponse](#v2createlocketcommentresponse) |
 | default | An unexpected error response. | [googlerpcStatus](#googlerpcstatus) |
 
 ### /api/v2/{name}/reactions
@@ -427,31 +427,31 @@ CreateMemoComment creates a comment for a memo.
 #### GET
 ##### Summary
 
-ListMemoReactions lists reactions for a memo.
+ListLocketReactions lists reactions for a locket.
 
 ##### Parameters
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| name | path | The name of the memo. Format: memos/{id} | Yes | string |
+| name | path | The name of the locket. Format: lockets/{id} | Yes | string |
 
 ##### Responses
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | A successful response. | [v2ListMemoReactionsResponse](#v2listmemoreactionsresponse) |
+| 200 | A successful response. | [v2ListLocketReactionsResponse](#v2listlocketreactionsresponse) |
 | default | An unexpected error response. | [googlerpcStatus](#googlerpcstatus) |
 
 #### POST
 ##### Summary
 
-UpsertMemoReaction upserts a reaction for a memo.
+UpsertLocketReaction upserts a reaction for a locket.
 
 ##### Parameters
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| name | path | The name of the memo. Format: memos/{id} | Yes | string |
+| name | path | The name of the locket. Format: lockets/{id} | Yes | string |
 | reaction.id | query |  | No | integer |
 | reaction.creator | query | The name of the creator. Format: users/{id} | No | string |
 | reaction.contentId | query |  | No | string |
@@ -461,7 +461,7 @@ UpsertMemoReaction upserts a reaction for a memo.
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | A successful response. | [v2UpsertMemoReactionResponse](#v2upsertmemoreactionresponse) |
+| 200 | A successful response. | [v2UpsertLocketReactionResponse](#v2upsertlocketreactionresponse) |
 | default | An unexpected error response. | [googlerpcStatus](#googlerpcstatus) |
 
 ### /api/v2/{name}/reactions/{reactionId}
@@ -469,20 +469,20 @@ UpsertMemoReaction upserts a reaction for a memo.
 #### DELETE
 ##### Summary
 
-DeleteMemoReaction deletes a reaction for a memo.
+DeleteLocketReaction deletes a reaction for a locket.
 
 ##### Parameters
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| name | path | The name of the memo. Format: memos/{id} | Yes | string |
+| name | path | The name of the locket. Format: lockets/{id} | Yes | string |
 | reactionId | path |  | Yes | integer |
 
 ##### Responses
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | A successful response. | [v2DeleteMemoReactionResponse](#v2deletememoreactionresponse) |
+| 200 | A successful response. | [v2DeleteLocketReactionResponse](#v2deletelocketreactionresponse) |
 | default | An unexpected error response. | [googlerpcStatus](#googlerpcstatus) |
 
 ### /api/v2/{name}/relations
@@ -490,38 +490,38 @@ DeleteMemoReaction deletes a reaction for a memo.
 #### GET
 ##### Summary
 
-ListMemoRelations lists relations for a memo.
+ListLocketRelations lists relations for a locket.
 
 ##### Parameters
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| name | path | The name of the memo. Format: memos/{id} | Yes | string |
+| name | path | The name of the locket. Format: lockets/{id} | Yes | string |
 
 ##### Responses
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | A successful response. | [v2ListMemoRelationsResponse](#v2listmemorelationsresponse) |
+| 200 | A successful response. | [v2ListLocketRelationsResponse](#v2listlocketrelationsresponse) |
 | default | An unexpected error response. | [googlerpcStatus](#googlerpcstatus) |
 
 #### POST
 ##### Summary
 
-SetMemoRelations sets relations for a memo.
+SetLocketRelations sets relations for a locket.
 
 ##### Parameters
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| name | path | The name of the memo. Format: memos/{id} | Yes | string |
-| body | body |  | Yes | [MemoServiceSetMemoRelationsBody](#memoservicesetmemorelationsbody) |
+| name | path | The name of the locket. Format: lockets/{id} | Yes | string |
+| body | body |  | Yes | [LocketServiceSetLocketRelationsBody](#locketservicesetlocketrelationsbody) |
 
 ##### Responses
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | A successful response. | [v2SetMemoRelationsResponse](#v2setmemorelationsresponse) |
+| 200 | A successful response. | [v2SetLocketRelationsResponse](#v2setlocketrelationsresponse) |
 | default | An unexpected error response. | [googlerpcStatus](#googlerpcstatus) |
 
 ### /api/v2/{name}/resources
@@ -529,38 +529,38 @@ SetMemoRelations sets relations for a memo.
 #### GET
 ##### Summary
 
-ListMemoResources lists resources for a memo.
+ListLocketResources lists resources for a locket.
 
 ##### Parameters
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| name | path | The name of the memo. Format: memos/{id} | Yes | string |
+| name | path | The name of the locket. Format: lockets/{id} | Yes | string |
 
 ##### Responses
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | A successful response. | [v2ListMemoResourcesResponse](#v2listmemoresourcesresponse) |
+| 200 | A successful response. | [v2ListLocketResourcesResponse](#v2listlocketresourcesresponse) |
 | default | An unexpected error response. | [googlerpcStatus](#googlerpcstatus) |
 
 #### POST
 ##### Summary
 
-SetMemoResources sets resources for a memo.
+SetLocketResources sets resources for a locket.
 
 ##### Parameters
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| name | path | The name of the memo. Format: memos/{id} | Yes | string |
-| body | body |  | Yes | [MemoServiceSetMemoResourcesBody](#memoservicesetmemoresourcesbody) |
+| name | path | The name of the locket. Format: lockets/{id} | Yes | string |
+| body | body |  | Yes | [LocketServiceSetLocketResourcesBody](#locketservicesetlocketresourcesbody) |
 
 ##### Responses
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | A successful response. | [v2SetMemoResourcesResponse](#v2setmemoresourcesresponse) |
+| 200 | A successful response. | [v2SetLocketResourcesResponse](#v2setlocketresourcesresponse) |
 | default | An unexpected error response. | [googlerpcStatus](#googlerpcstatus) |
 
 ---
@@ -592,7 +592,7 @@ CreateResource creates a new resource.
 | filename | query |  | No | string |
 | externalLink | query |  | No | string |
 | type | query |  | No | string |
-| memoId | query |  | No | integer |
+| locketId | query |  | No | integer |
 
 ##### Responses
 
@@ -606,7 +606,7 @@ CreateResource creates a new resource.
 #### GET
 ##### Summary
 
-SearchResources searches memos.
+SearchResources searches lockets.
 
 ##### Parameters
 
@@ -664,19 +664,19 @@ DeleteInbox deletes an inbox.
 #### GET
 ##### Summary
 
-GetMemo gets a memo.
+GetLocket gets a locket.
 
 ##### Parameters
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| name_2 | path | The name of the memo. Format: memos/{id} | Yes | string |
+| name_2 | path | The name of the locket. Format: lockets/{id} | Yes | string |
 
 ##### Responses
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | A successful response. | [v2GetMemoResponse](#v2getmemoresponse) |
+| 200 | A successful response. | [v2GetLocketResponse](#v2getlocketresponse) |
 | default | An unexpected error response. | [googlerpcStatus](#googlerpcstatus) |
 
 #### DELETE
@@ -709,7 +709,7 @@ UpdateResource updates a resource.
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
 | resource.name | path | The name of the resource. Format: resources/{id} id is the system generated unique identifier. | Yes | string |
-| resource | body |  | Yes | { **"uid"**: string, **"createTime"**: dateTime, **"filename"**: string, **"externalLink"**: string, **"type"**: string, **"size"**: string (int64), **"memoId"**: integer } |
+| resource | body |  | Yes | { **"uid"**: string, **"createTime"**: dateTime, **"filename"**: string, **"externalLink"**: string, **"type"**: string, **"size"**: string (int64), **"locketId"**: integer } |
 
 ##### Responses
 
@@ -783,7 +783,7 @@ UpsertTag upserts a tag.
 #### GET
 ##### Summary
 
-GetTagSuggestions gets tag suggestions from the user's memos.
+GetTagSuggestions gets tag suggestions from the user's lockets.
 
 ##### Parameters
 
@@ -818,7 +818,7 @@ BatchUpsertTag upserts multiple tags.
 ##### Summary
 
 RenameTag renames a tag.
-All related memos will be updated.
+All related lockets will be updated.
 
 ##### Parameters
 
@@ -1020,7 +1020,7 @@ UpdateUserSetting updates the setting of a user.
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
 | setting.name | path | The name of the user. Format: users/{id} | Yes | string |
-| setting | body |  | Yes | { **"locale"**: string, **"appearance"**: string, **"memoVisibility"**: string, **"telegramUserId"**: string } |
+| setting | body |  | Yes | { **"locale"**: string, **"appearance"**: string, **"locketVisibility"**: string, **"telegramUserId"**: string } |
 
 ##### Responses
 
@@ -1237,13 +1237,13 @@ GetActivity returns the activity with the given id.
 ---
 ### Models
 
-#### MemoServiceSetMemoRelationsBody
+#### LocketServiceSetLocketRelationsBody
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| relations | [ [v2MemoRelation](#v2memorelation) ] |  | No |
+| relations | [ [v2LocketRelation](#v2locketrelation) ] |  | No |
 
-#### MemoServiceSetMemoResourcesBody
+#### LocketServiceSetLocketResourcesBody
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
@@ -1262,18 +1262,18 @@ GetActivity returns the activity with the given id.
 | description | string |  | No |
 | expiresAt | dateTime |  | No |
 
-#### apiv2ActivityMemoCommentPayload
+#### apiv2ActivityLocketCommentPayload
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| memoId | integer |  | No |
-| relatedMemoId | integer |  | No |
+| locketId | integer |  | No |
+| relatedLocketId | integer |  | No |
 
 #### apiv2ActivityPayload
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| memoComment | [apiv2ActivityMemoCommentPayload](#apiv2activitymemocommentpayload) |  | No |
+| locketComment | [apiv2ActivityLocketCommentPayload](#apiv2activitylocketcommentpayload) |  | No |
 | versionUpdate | [apiv2ActivityVersionUpdatePayload](#apiv2activityversionupdatepayload) |  | No |
 
 #### apiv2ActivityVersionUpdatePayload
@@ -1310,7 +1310,7 @@ GetActivity returns the activity with the given id.
 | name | string |  | No |
 | locale | string | The preferred locale of the user. | No |
 | appearance | string | The preferred appearance of the user. | No |
-| memoVisibility | string | The default visibility of the memo. | No |
+| locketVisibility | string | The default visibility of the locket. | No |
 | telegramUserId | string | The telegram user id of the user. | No |
 
 #### apiv2Webhook
@@ -1373,24 +1373,24 @@ GetActivity returns the activity with the given id.
 | ---- | ---- | ----------- | -------- |
 | v2BatchUpsertTagResponse | object |  |  |
 
-#### v2CreateMemoCommentResponse
+#### v2CreateLocketCommentResponse
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| memo | [v2Memo](#v2memo) |  | No |
+| locket | [v2Locket](#v2locket) |  | No |
 
-#### v2CreateMemoRequest
+#### v2CreateLocketRequest
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
 | content | string |  | No |
 | visibility | [v2Visibility](#v2visibility) |  | No |
 
-#### v2CreateMemoResponse
+#### v2CreateLocketResponse
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| memo | [v2Memo](#v2memo) |  | No |
+| locket | [v2Locket](#v2locket) |  | No |
 
 #### v2CreateResourceResponse
 
@@ -1429,17 +1429,17 @@ GetActivity returns the activity with the given id.
 | ---- | ---- | ----------- | -------- |
 | v2DeleteInboxResponse | object |  |  |
 
-#### v2DeleteMemoReactionResponse
+#### v2DeleteLocketReactionResponse
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| v2DeleteMemoReactionResponse | object |  |  |
+| v2DeleteLocketReactionResponse | object |  |  |
 
-#### v2DeleteMemoResponse
+#### v2DeleteLocketResponse
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| v2DeleteMemoResponse | object |  |  |
+| v2DeleteLocketResponse | object |  |  |
 
 #### v2DeleteResourceResponse
 
@@ -1471,7 +1471,7 @@ GetActivity returns the activity with the given id.
 | ---- | ---- | ----------- | -------- |
 | v2DeleteWebhookResponse | object |  |  |
 
-#### v2ExportMemosResponse
+#### v2ExportLocketsResponse
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
@@ -1495,11 +1495,11 @@ GetActivity returns the activity with the given id.
 | ---- | ---- | ----------- | -------- |
 | linkMetadata | [v2LinkMetadata](#v2linkmetadata) |  | No |
 
-#### v2GetMemoResponse
+#### v2GetLocketResponse
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| memo | [v2Memo](#v2memo) |  | No |
+| locket | [v2Locket](#v2locket) |  | No |
 
 #### v2GetResourceResponse
 
@@ -1513,11 +1513,11 @@ GetActivity returns the activity with the given id.
 | ---- | ---- | ----------- | -------- |
 | tags | [ string ] |  | No |
 
-#### v2GetUserMemosStatsResponse
+#### v2GetUserLocketsStatsResponse
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| stats | object | stats is the stats of memo creating/updating activities. key is the year-month-day string. e.g. "2020-01-01". | No |
+| stats | object | stats is the stats of locket creating/updating activities. key is the year-month-day string. e.g. "2020-01-01". | No |
 
 #### v2GetUserResponse
 
@@ -1587,35 +1587,35 @@ GetActivity returns the activity with the given id.
 | ---- | ---- | ----------- | -------- |
 | inboxes | [ [v2Inbox](#v2inbox) ] |  | No |
 
-#### v2ListMemoCommentsResponse
+#### v2ListLocketCommentsResponse
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| memos | [ [v2Memo](#v2memo) ] |  | No |
+| lockets | [ [v2Locket](#v2locket) ] |  | No |
 
-#### v2ListMemoReactionsResponse
+#### v2ListLocketReactionsResponse
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
 | reactions | [ [apiv2Reaction](#apiv2reaction) ] |  | No |
 
-#### v2ListMemoRelationsResponse
+#### v2ListLocketRelationsResponse
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| relations | [ [v2MemoRelation](#v2memorelation) ] |  | No |
+| relations | [ [v2LocketRelation](#v2locketrelation) ] |  | No |
 
-#### v2ListMemoResourcesResponse
+#### v2ListLocketResourcesResponse
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
 | resources | [ [v2Resource](#v2resource) ] |  | No |
 
-#### v2ListMemosResponse
+#### v2ListLocketsResponse
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| memos | [ [v2Memo](#v2memo) ] |  | No |
+| lockets | [ [v2Locket](#v2locket) ] |  | No |
 | nextPageToken | string | A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted, there are no subsequent pages. | No |
 
 #### v2ListResourcesResponse
@@ -1648,12 +1648,12 @@ GetActivity returns the activity with the given id.
 | ---- | ---- | ----------- | -------- |
 | webhooks | [ [apiv2Webhook](#apiv2webhook) ] |  | No |
 
-#### v2Memo
+#### v2Locket
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| name | string | The name of the memo. Format: memos/{id} id is the system generated id. | No |
-| uid | string | The user defined id of the memo. | No |
+| name | string | The name of the locket. Format: lockets/{id} id is the system generated id. | No |
+| uid | string | The user defined id of the locket. | No |
 | rowStatus | [apiv2RowStatus](#apiv2rowstatus) |  | No |
 | creator | string |  | No |
 | createTime | dateTime |  | No |
@@ -1664,22 +1664,22 @@ GetActivity returns the activity with the given id.
 | pinned | boolean |  | No |
 | parentId | integer |  | No |
 | resources | [ [v2Resource](#v2resource) ] |  | No |
-| relations | [ [v2MemoRelation](#v2memorelation) ] |  | No |
+| relations | [ [v2LocketRelation](#v2locketrelation) ] |  | No |
 | reactions | [ [apiv2Reaction](#apiv2reaction) ] |  | No |
 
-#### v2MemoRelation
+#### v2LocketRelation
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| memo | string |  | No |
-| relatedMemo | string |  | No |
-| type | [v2MemoRelationType](#v2memorelationtype) |  | No |
+| locket | string |  | No |
+| relatedLocket | string |  | No |
+| type | [v2LocketRelationType](#v2locketrelationtype) |  | No |
 
-#### v2MemoRelationType
+#### v2LocketRelationType
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| v2MemoRelationType | string |  |  |
+| v2LocketRelationType | string |  |  |
 
 #### v2RenameTagResponse
 
@@ -1698,13 +1698,13 @@ GetActivity returns the activity with the given id.
 | externalLink | string |  | No |
 | type | string |  | No |
 | size | string (int64) |  | No |
-| memoId | integer |  | No |
+| locketId | integer |  | No |
 
-#### v2SearchMemosResponse
+#### v2SearchLocketsResponse
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| memos | [ [v2Memo](#v2memo) ] |  | No |
+| lockets | [ [v2Locket](#v2locket) ] |  | No |
 
 #### v2SearchResourcesResponse
 
@@ -1718,17 +1718,17 @@ GetActivity returns the activity with the given id.
 | ---- | ---- | ----------- | -------- |
 | users | [ [v2User](#v2user) ] |  | No |
 
-#### v2SetMemoRelationsResponse
+#### v2SetLocketRelationsResponse
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| v2SetMemoRelationsResponse | object |  |  |
+| v2SetLocketRelationsResponse | object |  |  |
 
-#### v2SetMemoResourcesResponse
+#### v2SetLocketResourcesResponse
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| v2SetMemoResourcesResponse | object |  |  |
+| v2SetLocketResourcesResponse | object |  |  |
 
 #### v2SetWorkspaceSettingResponse
 
@@ -1773,11 +1773,11 @@ GetActivity returns the activity with the given id.
 | ---- | ---- | ----------- | -------- |
 | inbox | [v2Inbox](#v2inbox) |  | No |
 
-#### v2UpdateMemoResponse
+#### v2UpdateLocketResponse
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| memo | [v2Memo](#v2memo) |  | No |
+| locket | [v2Locket](#v2locket) |  | No |
 
 #### v2UpdateResourceResponse
 
@@ -1803,7 +1803,7 @@ GetActivity returns the activity with the given id.
 | ---- | ---- | ----------- | -------- |
 | webhook | [apiv2Webhook](#apiv2webhook) |  | No |
 
-#### v2UpsertMemoReactionResponse
+#### v2UpsertLocketReactionResponse
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |

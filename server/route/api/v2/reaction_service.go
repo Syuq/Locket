@@ -12,7 +12,7 @@ import (
 	"github.com/syuq/locket/store"
 )
 
-func (s *APIV2Service) ListMemoReactions(ctx context.Context, request *apiv2pb.ListMemoReactionsRequest) (*apiv2pb.ListMemoReactionsResponse, error) {
+func (s *APIV2Service) ListLocketReactions(ctx context.Context, request *apiv2pb.ListLocketReactionsRequest) (*apiv2pb.ListLocketReactionsResponse, error) {
 	reactions, err := s.Store.ListReactions(ctx, &store.FindReaction{
 		ContentID: &request.Name,
 	})
@@ -20,7 +20,7 @@ func (s *APIV2Service) ListMemoReactions(ctx context.Context, request *apiv2pb.L
 		return nil, status.Errorf(codes.Internal, "failed to list reactions")
 	}
 
-	response := &apiv2pb.ListMemoReactionsResponse{
+	response := &apiv2pb.ListLocketReactionsResponse{
 		Reactions: []*apiv2pb.Reaction{},
 	}
 	for _, reaction := range reactions {
@@ -33,7 +33,7 @@ func (s *APIV2Service) ListMemoReactions(ctx context.Context, request *apiv2pb.L
 	return response, nil
 }
 
-func (s *APIV2Service) UpsertMemoReaction(ctx context.Context, request *apiv2pb.UpsertMemoReactionRequest) (*apiv2pb.UpsertMemoReactionResponse, error) {
+func (s *APIV2Service) UpsertLocketReaction(ctx context.Context, request *apiv2pb.UpsertLocketReactionRequest) (*apiv2pb.UpsertLocketReactionResponse, error) {
 	user, err := getCurrentUser(ctx, s.Store)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "failed to get current user")
@@ -51,19 +51,19 @@ func (s *APIV2Service) UpsertMemoReaction(ctx context.Context, request *apiv2pb.
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "failed to convert reaction")
 	}
-	return &apiv2pb.UpsertMemoReactionResponse{
+	return &apiv2pb.UpsertLocketReactionResponse{
 		Reaction: reactionMessage,
 	}, nil
 }
 
-func (s *APIV2Service) DeleteMemoReaction(ctx context.Context, request *apiv2pb.DeleteMemoReactionRequest) (*apiv2pb.DeleteMemoReactionResponse, error) {
+func (s *APIV2Service) DeleteLocketReaction(ctx context.Context, request *apiv2pb.DeleteLocketReactionRequest) (*apiv2pb.DeleteLocketReactionResponse, error) {
 	if err := s.Store.DeleteReaction(ctx, &store.DeleteReaction{
 		ID: request.ReactionId,
 	}); err != nil {
 		return nil, status.Errorf(codes.Internal, "failed to delete reaction")
 	}
 
-	return &apiv2pb.DeleteMemoReactionResponse{}, nil
+	return &apiv2pb.DeleteLocketReactionResponse{}, nil
 }
 
 func (s *APIV2Service) convertReactionFromStore(ctx context.Context, reaction *storepb.Reaction) (*apiv2pb.Reaction, error) {

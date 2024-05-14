@@ -10,7 +10,7 @@ tags:
   - name: InboxService
   - name: LinkService
   - name: ResourceService
-  - name: MemoService
+  - name: LocketService
   - name: TagService
   - name: WebhookService
   - name: WorkspaceService
@@ -261,50 +261,50 @@ paths:
           type: string
       tags:
         - LinkService
-  /api/v2/memos:
+  /api/v2/lockets:
     get:
-      summary: ListMemos lists memos with pagination and filter.
-      operationId: MemoService_ListMemos
+      summary: ListLockets lists lockets with pagination and filter.
+      operationId: LocketService_ListLockets
       responses:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/v2ListMemosResponse'
+            $ref: '#/definitions/v2ListLocketsResponse'
         default:
           description: An unexpected error response.
           schema:
             $ref: '#/definitions/googlerpcStatus'
       parameters:
         - name: pageSize
-          description: The maximum number of memos to return.
+          description: The maximum number of lockets to return.
           in: query
           required: false
           type: integer
           format: int32
         - name: pageToken
           description: |-
-            A page token, received from a previous `ListMemos` call.
+            A page token, received from a previous `ListLockets` call.
             Provide this to retrieve the subsequent page.
           in: query
           required: false
           type: string
         - name: filter
           description: |-
-            Filter is used to filter memos returned in the list.
+            Filter is used to filter lockets returned in the list.
             Format: "creator == users/{uid} && visibilities == ['PUBLIC', 'PROTECTED']"
           in: query
           required: false
           type: string
       tags:
-        - MemoService
+        - LocketService
     post:
-      summary: CreateMemo creates a memo.
-      operationId: MemoService_CreateMemo
+      summary: CreateLocket creates a locket.
+      operationId: LocketService_CreateLocket
       responses:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/v2CreateMemoResponse'
+            $ref: '#/definitions/v2CreateLocketResponse'
         default:
           description: An unexpected error response.
           schema:
@@ -314,18 +314,18 @@ paths:
           in: body
           required: true
           schema:
-            $ref: '#/definitions/v2CreateMemoRequest'
+            $ref: '#/definitions/v2CreateLocketRequest'
       tags:
-        - MemoService
-  /api/v2/memos/stats:
+        - LocketService
+  /api/v2/lockets/stats:
     get:
-      summary: GetUserMemosStats gets stats of memos for a user.
-      operationId: MemoService_GetUserMemosStats
+      summary: GetUserLocketsStats gets stats of lockets for a user.
+      operationId: LocketService_GetUserLocketsStats
       responses:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/v2GetUserMemosStatsResponse'
+            $ref: '#/definitions/v2GetUserLocketsStatsResponse'
         default:
           description: An unexpected error response.
           schema:
@@ -347,42 +347,42 @@ paths:
           required: false
           type: string
         - name: filter
-          description: Same as ListMemosRequest.filter
+          description: Same as ListLocketsRequest.filter
           in: query
           required: false
           type: string
       tags:
-        - MemoService
-  /api/v2/memos:export:
+        - LocketService
+  /api/v2/lockets:export:
     post:
-      summary: ExportMemos exports memos.
-      operationId: MemoService_ExportMemos
+      summary: ExportLockets exports lockets.
+      operationId: LocketService_ExportLockets
       responses:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/v2ExportMemosResponse'
+            $ref: '#/definitions/v2ExportLocketsResponse'
         default:
           description: An unexpected error response.
           schema:
             $ref: '#/definitions/googlerpcStatus'
       parameters:
         - name: filter
-          description: Same as ListMemosRequest.filter
+          description: Same as ListLocketsRequest.filter
           in: query
           required: false
           type: string
       tags:
-        - MemoService
-  /api/v2/memos:search:
+        - LocketService
+  /api/v2/lockets:search:
     get:
-      summary: SearchMemos searches memos.
-      operationId: MemoService_SearchMemos
+      summary: SearchLockets searches lockets.
+      operationId: LocketService_SearchLockets
       responses:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/v2SearchMemosResponse'
+            $ref: '#/definitions/v2SearchLocketsResponse'
         default:
           description: An unexpected error response.
           schema:
@@ -390,22 +390,22 @@ paths:
       parameters:
         - name: filter
           description: |-
-            Filter is used to filter memos returned.
+            Filter is used to filter lockets returned.
             Format: "creator == users/{uid} && visibilities == ['PUBLIC', 'PROTECTED']"
           in: query
           required: false
           type: string
       tags:
-        - MemoService
+        - LocketService
   /api/v2/reactions/{reactionId}:
     delete:
-      summary: DeleteMemoReaction deletes a reaction for a memo.
-      operationId: MemoService_DeleteMemoReaction
+      summary: DeleteLocketReaction deletes a reaction for a locket.
+      operationId: LocketService_DeleteLocketReaction
       responses:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/v2DeleteMemoReactionResponse'
+            $ref: '#/definitions/v2DeleteLocketReactionResponse'
         default:
           description: An unexpected error response.
           schema:
@@ -417,7 +417,7 @@ paths:
           type: integer
           format: int32
       tags:
-        - MemoService
+        - LocketService
   /api/v2/resources:
     get:
       summary: ListResources lists all resources.
@@ -458,8 +458,8 @@ paths:
           in: query
           required: false
           type: string
-        - name: memo
-          description: 'Format: memos/{id}'
+        - name: locket
+          description: 'Format: lockets/{id}'
           in: query
           required: false
           type: string
@@ -467,7 +467,7 @@ paths:
         - ResourceService
   /api/v2/resources:search:
     get:
-      summary: SearchResources searches memos.
+      summary: SearchResources searches lockets.
       operationId: ResourceService_SearchResources
       responses:
         "200":
@@ -555,7 +555,7 @@ paths:
         - TagService
   /api/v2/tags/suggestion:
     get:
-      summary: GetTagSuggestions gets tag suggestions from the user's memos.
+      summary: GetTagSuggestions gets tag suggestions from the user's lockets.
       operationId: TagService_GetTagSuggestions
       responses:
         "200":
@@ -595,7 +595,7 @@ paths:
     patch:
       summary: |-
         RenameTag renames a tag.
-        All related memos will be updated.
+        All related lockets will be updated.
       operationId: TagService_RenameTag
       responses:
         "200":
@@ -966,30 +966,30 @@ paths:
                 format: int32
       tags:
         - InboxService
-  /api/v2/{memo.name}:
+  /api/v2/{locket.name}:
     patch:
-      summary: UpdateMemo updates a memo.
-      operationId: MemoService_UpdateMemo
+      summary: UpdateLocket updates a locket.
+      operationId: LocketService_UpdateLocket
       responses:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/v2UpdateMemoResponse'
+            $ref: '#/definitions/v2UpdateLocketResponse'
         default:
           description: An unexpected error response.
           schema:
             $ref: '#/definitions/googlerpcStatus'
       parameters:
-        - name: memo.name
+        - name: locket.name
           description: |-
-            The name of the memo.
-            Format: memos/{id}
+            The name of the locket.
+            Format: lockets/{id}
             id is the system generated id.
           in: path
           required: true
           type: string
-          pattern: memos/[^/]+
-        - name: memo
+          pattern: lockets/[^/]+
+        - name: locket
           in: body
           required: true
           schema:
@@ -997,7 +997,7 @@ paths:
             properties:
               uid:
                 type: string
-                description: The user defined id of the memo.
+                description: The user defined id of the locket.
               rowStatus:
                 $ref: '#/definitions/apiv2RowStatus'
               creator:
@@ -1034,7 +1034,7 @@ paths:
                 type: array
                 items:
                   type: object
-                  $ref: '#/definitions/v2MemoRelation'
+                  $ref: '#/definitions/v2LocketRelation'
                 readOnly: true
               reactions:
                 type: array
@@ -1043,7 +1043,7 @@ paths:
                   $ref: '#/definitions/apiv2Reaction'
                 readOnly: true
       tags:
-        - MemoService
+        - LocketService
   /api/v2/{name_1}:
     get:
       operationId: IdentityProviderService_GetIdentityProvider
@@ -1136,13 +1136,13 @@ paths:
         - InboxService
   /api/v2/{name_3}:
     get:
-      summary: GetMemo gets a memo.
-      operationId: MemoService_GetMemo
+      summary: GetLocket gets a locket.
+      operationId: LocketService_GetLocket
       responses:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/v2GetMemoResponse'
+            $ref: '#/definitions/v2GetLocketResponse'
         default:
           description: An unexpected error response.
           schema:
@@ -1150,14 +1150,14 @@ paths:
       parameters:
         - name: name_3
           description: |-
-            The name of the memo.
-            Format: memos/{id}
+            The name of the locket.
+            Format: lockets/{id}
           in: path
           required: true
           type: string
-          pattern: memos/[^/]+
+          pattern: lockets/[^/]+
       tags:
-        - MemoService
+        - LocketService
     delete:
       summary: DeleteResource deletes a resource by name.
       operationId: ResourceService_DeleteResource
@@ -1180,13 +1180,13 @@ paths:
         - ResourceService
   /api/v2/{name_4}:
     delete:
-      summary: DeleteMemo deletes a memo.
-      operationId: MemoService_DeleteMemo
+      summary: DeleteLocket deletes a locket.
+      operationId: LocketService_DeleteLocket
       responses:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/v2DeleteMemoResponse'
+            $ref: '#/definitions/v2DeleteLocketResponse'
         default:
           description: An unexpected error response.
           schema:
@@ -1194,14 +1194,14 @@ paths:
       parameters:
         - name: name_4
           description: |-
-            The name of the memo.
-            Format: memos/{id}
+            The name of the locket.
+            Format: lockets/{id}
           in: path
           required: true
           type: string
-          pattern: memos/[^/]+
+          pattern: lockets/[^/]+
       tags:
-        - MemoService
+        - LocketService
   /api/v2/{name}:
     get:
       summary: GetUser gets a user by name.
@@ -1332,13 +1332,13 @@ paths:
         - UserService
   /api/v2/{name}/comments:
     get:
-      summary: ListMemoComments lists comments for a memo.
-      operationId: MemoService_ListMemoComments
+      summary: ListLocketComments lists comments for a locket.
+      operationId: LocketService_ListLocketComments
       responses:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/v2ListMemoCommentsResponse'
+            $ref: '#/definitions/v2ListLocketCommentsResponse'
         default:
           description: An unexpected error response.
           schema:
@@ -1346,22 +1346,22 @@ paths:
       parameters:
         - name: name
           description: |-
-            The name of the memo.
-            Format: memos/{id}
+            The name of the locket.
+            Format: lockets/{id}
           in: path
           required: true
           type: string
-          pattern: memos/[^/]+
+          pattern: lockets/[^/]+
       tags:
-        - MemoService
+        - LocketService
     post:
-      summary: CreateMemoComment creates a comment for a memo.
-      operationId: MemoService_CreateMemoComment
+      summary: CreateLocketComment creates a comment for a locket.
+      operationId: LocketService_CreateLocketComment
       responses:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/v2CreateMemoCommentResponse'
+            $ref: '#/definitions/v2CreateLocketCommentResponse'
         default:
           description: An unexpected error response.
           schema:
@@ -1369,12 +1369,12 @@ paths:
       parameters:
         - name: name
           description: |-
-            The name of the memo.
-            Format: memos/{id}
+            The name of the locket.
+            Format: lockets/{id}
           in: path
           required: true
           type: string
-          pattern: memos/[^/]+
+          pattern: lockets/[^/]+
         - name: comment.content
           in: query
           required: false
@@ -1390,16 +1390,16 @@ paths:
             - PUBLIC
           default: VISIBILITY_UNSPECIFIED
       tags:
-        - MemoService
+        - LocketService
   /api/v2/{name}/reactions:
     get:
-      summary: ListMemoReactions lists reactions for a memo.
-      operationId: MemoService_ListMemoReactions
+      summary: ListLocketReactions lists reactions for a locket.
+      operationId: LocketService_ListLocketReactions
       responses:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/v2ListMemoReactionsResponse'
+            $ref: '#/definitions/v2ListLocketReactionsResponse'
         default:
           description: An unexpected error response.
           schema:
@@ -1407,22 +1407,22 @@ paths:
       parameters:
         - name: name
           description: |-
-            The name of the memo.
-            Format: memos/{id}
+            The name of the locket.
+            Format: lockets/{id}
           in: path
           required: true
           type: string
-          pattern: memos/[^/]+
+          pattern: lockets/[^/]+
       tags:
-        - MemoService
+        - LocketService
     post:
-      summary: UpsertMemoReaction upserts a reaction for a memo.
-      operationId: MemoService_UpsertMemoReaction
+      summary: UpsertLocketReaction upserts a reaction for a locket.
+      operationId: LocketService_UpsertLocketReaction
       responses:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/v2UpsertMemoReactionResponse'
+            $ref: '#/definitions/v2UpsertLocketReactionResponse'
         default:
           description: An unexpected error response.
           schema:
@@ -1430,12 +1430,12 @@ paths:
       parameters:
         - name: name
           description: |-
-            The name of the memo.
-            Format: memos/{id}
+            The name of the locket.
+            Format: lockets/{id}
           in: path
           required: true
           type: string
-          pattern: memos/[^/]+
+          pattern: lockets/[^/]+
         - name: reaction.id
           in: query
           required: false
@@ -1472,16 +1472,16 @@ paths:
             - QUESTION_MARK
           default: TYPE_UNSPECIFIED
       tags:
-        - MemoService
+        - LocketService
   /api/v2/{name}/relations:
     get:
-      summary: ListMemoRelations lists relations for a memo.
-      operationId: MemoService_ListMemoRelations
+      summary: ListLocketRelations lists relations for a locket.
+      operationId: LocketService_ListLocketRelations
       responses:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/v2ListMemoRelationsResponse'
+            $ref: '#/definitions/v2ListLocketRelationsResponse'
         default:
           description: An unexpected error response.
           schema:
@@ -1489,22 +1489,22 @@ paths:
       parameters:
         - name: name
           description: |-
-            The name of the memo.
-            Format: memos/{id}
+            The name of the locket.
+            Format: lockets/{id}
           in: path
           required: true
           type: string
-          pattern: memos/[^/]+
+          pattern: lockets/[^/]+
       tags:
-        - MemoService
+        - LocketService
     post:
-      summary: SetMemoRelations sets relations for a memo.
-      operationId: MemoService_SetMemoRelations
+      summary: SetLocketRelations sets relations for a locket.
+      operationId: LocketService_SetLocketRelations
       responses:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/v2SetMemoRelationsResponse'
+            $ref: '#/definitions/v2SetLocketRelationsResponse'
         default:
           description: An unexpected error response.
           schema:
@@ -1512,28 +1512,28 @@ paths:
       parameters:
         - name: name
           description: |-
-            The name of the memo.
-            Format: memos/{id}
+            The name of the locket.
+            Format: lockets/{id}
           in: path
           required: true
           type: string
-          pattern: memos/[^/]+
+          pattern: lockets/[^/]+
         - name: body
           in: body
           required: true
           schema:
-            $ref: '#/definitions/MemoServiceSetMemoRelationsBody'
+            $ref: '#/definitions/LocketServiceSetLocketRelationsBody'
       tags:
-        - MemoService
+        - LocketService
   /api/v2/{name}/resources:
     get:
-      summary: ListMemoResources lists resources for a memo.
-      operationId: MemoService_ListMemoResources
+      summary: ListLocketResources lists resources for a locket.
+      operationId: LocketService_ListLocketResources
       responses:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/v2ListMemoResourcesResponse'
+            $ref: '#/definitions/v2ListLocketResourcesResponse'
         default:
           description: An unexpected error response.
           schema:
@@ -1541,22 +1541,22 @@ paths:
       parameters:
         - name: name
           description: |-
-            The name of the memo.
-            Format: memos/{id}
+            The name of the locket.
+            Format: lockets/{id}
           in: path
           required: true
           type: string
-          pattern: memos/[^/]+
+          pattern: lockets/[^/]+
       tags:
-        - MemoService
+        - LocketService
     post:
-      summary: SetMemoResources sets resources for a memo.
-      operationId: MemoService_SetMemoResources
+      summary: SetLocketResources sets resources for a locket.
+      operationId: LocketService_SetLocketResources
       responses:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/v2SetMemoResourcesResponse'
+            $ref: '#/definitions/v2SetLocketResourcesResponse'
         default:
           description: An unexpected error response.
           schema:
@@ -1564,19 +1564,19 @@ paths:
       parameters:
         - name: name
           description: |-
-            The name of the memo.
-            Format: memos/{id}
+            The name of the locket.
+            Format: lockets/{id}
           in: path
           required: true
           type: string
-          pattern: memos/[^/]+
+          pattern: lockets/[^/]+
         - name: body
           in: body
           required: true
           schema:
-            $ref: '#/definitions/MemoServiceSetMemoResourcesBody'
+            $ref: '#/definitions/LocketServiceSetLocketResourcesBody'
       tags:
-        - MemoService
+        - LocketService
   /api/v2/{name}/setting:
     get:
       summary: GetUserSetting gets the setting of a user.
@@ -1645,9 +1645,9 @@ paths:
               size:
                 type: string
                 format: int64
-              memo:
+              locket:
                 type: string
-                title: 'Format: memos/{id}'
+                title: 'Format: lockets/{id}'
       tags:
         - ResourceService
   /api/v2/{setting.name}:
@@ -1684,9 +1684,9 @@ paths:
               appearance:
                 type: string
                 description: The preferred appearance of the user.
-              memoVisibility:
+              locketVisibility:
                 type: string
-                description: The default visibility of the memo.
+                description: The default visibility of the locket.
               telegramUserId:
                 type: string
                 description: The telegram user id of the user.
@@ -1803,15 +1803,15 @@ definitions:
           type: string
       fieldMapping:
         $ref: '#/definitions/IdentityProviderConfigFieldMapping'
-  MemoServiceSetMemoRelationsBody:
+  LocketServiceSetLocketRelationsBody:
     type: object
     properties:
       relations:
         type: array
         items:
           type: object
-          $ref: '#/definitions/v2MemoRelation'
-  MemoServiceSetMemoResourcesBody:
+          $ref: '#/definitions/v2LocketRelation'
+  LocketServiceSetLocketResourcesBody:
     type: object
     properties:
       resources:
@@ -1835,20 +1835,20 @@ definitions:
       expiresAt:
         type: string
         format: date-time
-  apiv2ActivityMemoCommentPayload:
+  apiv2ActivityLocketCommentPayload:
     type: object
     properties:
-      memoId:
+      locketId:
         type: integer
         format: int32
-      relatedMemoId:
+      relatedLocketId:
         type: integer
         format: int32
   apiv2ActivityPayload:
     type: object
     properties:
-      memoComment:
-        $ref: '#/definitions/apiv2ActivityMemoCommentPayload'
+      locketComment:
+        $ref: '#/definitions/apiv2ActivityLocketCommentPayload'
       versionUpdate:
         $ref: '#/definitions/apiv2ActivityVersionUpdatePayload'
   apiv2ActivityVersionUpdatePayload:
@@ -1909,9 +1909,9 @@ definitions:
       appearance:
         type: string
         description: The preferred appearance of the user.
-      memoVisibility:
+      locketVisibility:
         type: string
-        description: The default visibility of the memo.
+        description: The default visibility of the locket.
       telegramUserId:
         type: string
         description: The telegram user id of the user.
@@ -2010,23 +2010,23 @@ definitions:
       identityProvider:
         $ref: '#/definitions/v2IdentityProvider'
         description: The created identityProvider.
-  v2CreateMemoCommentResponse:
+  v2CreateLocketCommentResponse:
     type: object
     properties:
-      memo:
-        $ref: '#/definitions/v2Memo'
-  v2CreateMemoRequest:
+      locket:
+        $ref: '#/definitions/v2Locket'
+  v2CreateLocketRequest:
     type: object
     properties:
       content:
         type: string
       visibility:
         $ref: '#/definitions/v2Visibility'
-  v2CreateMemoResponse:
+  v2CreateLocketResponse:
     type: object
     properties:
-      memo:
-        $ref: '#/definitions/v2Memo'
+      locket:
+        $ref: '#/definitions/v2Locket'
   v2CreateResourceResponse:
     type: object
     properties:
@@ -2058,9 +2058,9 @@ definitions:
     type: object
   v2DeleteInboxResponse:
     type: object
-  v2DeleteMemoReactionResponse:
+  v2DeleteLocketReactionResponse:
     type: object
-  v2DeleteMemoResponse:
+  v2DeleteLocketResponse:
     type: object
   v2DeleteResourceResponse:
     type: object
@@ -2072,7 +2072,7 @@ definitions:
     type: object
   v2DeleteWebhookResponse:
     type: object
-  v2ExportMemosResponse:
+  v2ExportLocketsResponse:
     type: object
     properties:
       content:
@@ -2099,11 +2099,11 @@ definitions:
     properties:
       linkMetadata:
         $ref: '#/definitions/v2LinkMetadata'
-  v2GetMemoResponse:
+  v2GetLocketResponse:
     type: object
     properties:
-      memo:
-        $ref: '#/definitions/v2Memo'
+      locket:
+        $ref: '#/definitions/v2Locket'
   v2GetResourceResponse:
     type: object
     properties:
@@ -2116,7 +2116,7 @@ definitions:
         type: array
         items:
           type: string
-  v2GetUserMemosStatsResponse:
+  v2GetUserLocketsStatsResponse:
     type: object
     properties:
       stats:
@@ -2125,7 +2125,7 @@ definitions:
           type: integer
           format: int32
         description: |-
-          stats is the stats of memo creating/updating activities.
+          stats is the stats of locket creating/updating activities.
           key is the year-month-day string. e.g. "2020-01-01".
   v2GetUserResponse:
     type: object
@@ -2209,7 +2209,7 @@ definitions:
     type: string
     enum:
       - TYPE_UNSPECIFIED
-      - TYPE_MEMO_COMMENT
+      - TYPE_LOCKET_COMMENT
       - TYPE_VERSION_UPDATE
     default: TYPE_UNSPECIFIED
   v2LinkMetadata:
@@ -2237,15 +2237,15 @@ definitions:
         items:
           type: object
           $ref: '#/definitions/v2Inbox'
-  v2ListMemoCommentsResponse:
+  v2ListLocketCommentsResponse:
     type: object
     properties:
-      memos:
+      lockets:
         type: array
         items:
           type: object
-          $ref: '#/definitions/v2Memo'
-  v2ListMemoReactionsResponse:
+          $ref: '#/definitions/v2Locket'
+  v2ListLocketReactionsResponse:
     type: object
     properties:
       reactions:
@@ -2253,15 +2253,15 @@ definitions:
         items:
           type: object
           $ref: '#/definitions/apiv2Reaction'
-  v2ListMemoRelationsResponse:
+  v2ListLocketRelationsResponse:
     type: object
     properties:
       relations:
         type: array
         items:
           type: object
-          $ref: '#/definitions/v2MemoRelation'
-  v2ListMemoResourcesResponse:
+          $ref: '#/definitions/v2LocketRelation'
+  v2ListLocketResourcesResponse:
     type: object
     properties:
       resources:
@@ -2269,14 +2269,14 @@ definitions:
         items:
           type: object
           $ref: '#/definitions/v2Resource'
-  v2ListMemosResponse:
+  v2ListLocketsResponse:
     type: object
     properties:
-      memos:
+      lockets:
         type: array
         items:
           type: object
-          $ref: '#/definitions/v2Memo'
+          $ref: '#/definitions/v2Locket'
       nextPageToken:
         type: string
         description: |-
@@ -2322,18 +2322,18 @@ definitions:
         items:
           type: object
           $ref: '#/definitions/apiv2Webhook'
-  v2Memo:
+  v2Locket:
     type: object
     properties:
       name:
         type: string
         description: |-
-          The name of the memo.
-          Format: memos/{id}
+          The name of the locket.
+          Format: lockets/{id}
           id is the system generated id.
       uid:
         type: string
-        description: The user defined id of the memo.
+        description: The user defined id of the locket.
       rowStatus:
         $ref: '#/definitions/apiv2RowStatus'
       creator:
@@ -2370,7 +2370,7 @@ definitions:
         type: array
         items:
           type: object
-          $ref: '#/definitions/v2MemoRelation'
+          $ref: '#/definitions/v2LocketRelation'
         readOnly: true
       reactions:
         type: array
@@ -2378,22 +2378,22 @@ definitions:
           type: object
           $ref: '#/definitions/apiv2Reaction'
         readOnly: true
-  v2MemoRelation:
+  v2LocketRelation:
     type: object
     properties:
-      memo:
+      locket:
         type: string
         title: |-
-          The name of memo.
-          Format: "memos/{uid}"
-      relatedMemo:
+          The name of locket.
+          Format: "lockets/{uid}"
+      relatedLocket:
         type: string
         title: |-
-          The name of related memo.
-          Format: "memos/{uid}"
+          The name of related locket.
+          Format: "lockets/{uid}"
       type:
-        $ref: '#/definitions/v2MemoRelationType'
-  v2MemoRelationType:
+        $ref: '#/definitions/v2LocketRelationType'
+  v2LocketRelationType:
     type: string
     enum:
       - TYPE_UNSPECIFIED
@@ -2429,17 +2429,17 @@ definitions:
       size:
         type: string
         format: int64
-      memo:
+      locket:
         type: string
-        title: 'Format: memos/{id}'
-  v2SearchMemosResponse:
+        title: 'Format: lockets/{id}'
+  v2SearchLocketsResponse:
     type: object
     properties:
-      memos:
+      lockets:
         type: array
         items:
           type: object
-          $ref: '#/definitions/v2Memo'
+          $ref: '#/definitions/v2Locket'
   v2SearchResourcesResponse:
     type: object
     properties:
@@ -2456,9 +2456,9 @@ definitions:
         items:
           type: object
           $ref: '#/definitions/v2User'
-  v2SetMemoRelationsResponse:
+  v2SetLocketRelationsResponse:
     type: object
-  v2SetMemoResourcesResponse:
+  v2SetLocketResourcesResponse:
     type: object
   v2SetWorkspaceSettingResponse:
     type: object
@@ -2503,11 +2503,11 @@ definitions:
     properties:
       inbox:
         $ref: '#/definitions/v2Inbox'
-  v2UpdateMemoResponse:
+  v2UpdateLocketResponse:
     type: object
     properties:
-      memo:
-        $ref: '#/definitions/v2Memo'
+      locket:
+        $ref: '#/definitions/v2Locket'
   v2UpdateResourceResponse:
     type: object
     properties:
@@ -2528,7 +2528,7 @@ definitions:
     properties:
       webhook:
         $ref: '#/definitions/apiv2Webhook'
-  v2UpsertMemoReactionResponse:
+  v2UpsertLocketReactionResponse:
     type: object
     properties:
       reaction:
