@@ -24,7 +24,7 @@ export const useInboxStore = create(
         updateMask,
       });
       if (!updatedInbox) {
-        throw new Error("Inbox not updated");
+        throw new Error("Inbox not found");
       }
       const inboxes = get().inboxes;
       set({ inboxes: inboxes.map((i) => (i.name === updatedInbox.name ? updatedInbox : i)) });
