@@ -1,25 +1,26 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
+    <meta charset="UTF-8" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/webp" href="/logo.webp" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f4f4f5" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#18181b" />
-    <meta name="description" content="Web site created using create-react-app" />
-    <link rel="apple-touch-icon" href="/logo192.png" />
-    <link rel="manifest" href="/manifest.json" />
-    <title>React App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <!-- lockets.metadata.head -->
+    <title>Locket</title>
     <script>
-      const apperance = localStorage.getItem("apperance");
-      if (apperance === `"dark"`) {
+      // Prevent flash of light mode.
+      const appearance = localStorage.getItem("appearance");
+      if (appearance === `"dark"`) {
         document.documentElement.classList.add("dark");
       }
     </script>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <!-- lockets.metadata.body -->
   </body>
 </html>
