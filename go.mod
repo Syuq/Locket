@@ -1,4 +1,4 @@
-module github.com/Syuq/locket
+module github.com/syuq/locket
 
 go 1.22
 
@@ -23,7 +23,6 @@ require (
 	github.com/spf13/cobra v1.8.0
 	github.com/spf13/viper v1.18.2
 	github.com/stretchr/testify v1.8.4
-	github.com/swaggo/swag v1.16.3
 	github.com/yourselfhosted/gomark v0.0.0-20240228170507-6a73bfad2eb6
 	golang.org/x/crypto v0.19.0
 	golang.org/x/mod v0.15.0
@@ -40,10 +39,6 @@ require (
 	github.com/cenkalti/backoff/v4 v4.2.1 // indirect
 	github.com/desertbit/timer v0.0.0-20180107155436-c41aec40b27f // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
-	github.com/go-openapi/jsonpointer v0.20.2 // indirect
-	github.com/go-openapi/jsonreference v0.20.4 // indirect
-	github.com/go-openapi/spec v0.20.14 // indirect
-	github.com/go-openapi/swag v0.22.9 // indirect
 	github.com/hashicorp/golang-lru/v2 v2.0.7 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
