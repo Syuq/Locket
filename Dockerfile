@@ -34,7 +34,7 @@ EXPOSE 5230
 RUN mkdir -p /var/opt/lockets
 VOLUME /var/opt/lockets
 
-ENV LOCKETS_MODE="prod"
-ENV LOCKETS_PORT="5230"
+ENV LOCKET_MODE="prod"
+ENV LOCKET_PORT="5230"
 
 ENTRYPOINT ["./lockets"]
