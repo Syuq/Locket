@@ -148,7 +148,7 @@ type Metadata struct {
 func getDefaultMetadata() *Metadata {
 	return &Metadata{
 		Title:       "Lockets",
-		Description: "A privacy-first, lightweight note-taking service. Easily capture and share your great thoughts.",
+		Description: "LOCKET IMAGE SHARING APP.",
 		ImageURL:    "/logo.webp",
 	}
 }
