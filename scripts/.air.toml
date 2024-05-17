@@ -2,7 +2,7 @@ root = "."
 tmp_dir = ".air"
 
 [build]
-bin = "./.air/lockets --mode demo"
+bin = "./.air/lockets --mode dev"
 cmd = "go build -o ./.air/lockets ./bin/lockets/main.go"
 delay = 1000
 exclude_dir = [".air", "web", "build"]
