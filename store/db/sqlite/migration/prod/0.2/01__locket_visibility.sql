@@ -1,0 +1,4 @@
+ALTER TABLE
+  locket
+ADD
+  COLUMN visibility TEXT NOT NULL CHECK (visibility IN ('PUBLIC', 'PRIVATE')) DEFAULT 'PRIVATE';
