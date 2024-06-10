@@ -13,8 +13,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/syuq/locket/plugin/idp"
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/plugin/idp"
+	"github.com/Syuq/Locket/store"
 )
 
 func TestNewIdentityProvider(t *testing.T) {

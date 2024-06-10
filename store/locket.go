@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	"github.com/syuq/locket/internal/util"
+	"github.com/Syuq/Locket/internal/util"
 )
 
 // Visibility is the type of a visibility.

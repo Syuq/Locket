@@ -8,8 +8,8 @@ import (
 
 	"github.com/joho/godotenv"
 
-	"github.com/syuq/locket/server/profile"
-	"github.com/syuq/locket/server/version"
+	"github.com/Syuq/Locket/server/profile"
+	"github.com/Syuq/Locket/server/version"
 )
 
 func getUnusedPort() int {

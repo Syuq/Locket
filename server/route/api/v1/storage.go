@@ -7,8 +7,8 @@ import (
 
 	"github.com/labstack/echo/v4"
 
-	"github.com/syuq/locket/internal/util"
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/internal/util"
+	"github.com/Syuq/Locket/store"
 )
 
 const (

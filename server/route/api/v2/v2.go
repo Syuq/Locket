@@ -14,9 +14,9 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/reflection"
 
-	apiv2pb "github.com/syuq/locket/proto/gen/api/v2"
-	"github.com/syuq/locket/server/profile"
-	"github.com/syuq/locket/store"
+	apiv2pb "github.com/Syuq/Locket/proto/gen/api/v2"
+	"github.com/Syuq/Locket/server/profile"
+	"github.com/Syuq/Locket/store"
 )
 
 type APIV2Service struct {

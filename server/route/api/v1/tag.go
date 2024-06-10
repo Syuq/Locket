@@ -10,7 +10,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/store"
 )
 
 type Tag struct {

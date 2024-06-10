@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/store"
 )
 
 func (d *DB) CreateResource(ctx context.Context, create *store.Resource) (*store.Resource, error) {

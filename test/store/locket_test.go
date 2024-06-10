@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/store"
 )
 
 func TestLocketStore(t *testing.T) {

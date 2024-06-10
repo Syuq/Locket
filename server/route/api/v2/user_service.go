@@ -18,11 +18,11 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	"github.com/syuq/locket/internal/util"
-	apiv2pb "github.com/syuq/locket/proto/gen/api/v2"
-	storepb "github.com/syuq/locket/proto/gen/store"
-	"github.com/syuq/locket/server/route/api/auth"
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/internal/util"
+	apiv2pb "github.com/Syuq/Locket/proto/gen/api/v2"
+	storepb "github.com/Syuq/Locket/proto/gen/store"
+	"github.com/Syuq/Locket/server/route/api/auth"
+	"github.com/Syuq/Locket/store"
 )
 
 func (s *APIV2Service) ListUsers(ctx context.Context, _ *apiv2pb.ListUsersRequest) (*apiv2pb.ListUsersResponse, error) {

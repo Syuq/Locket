@@ -11,8 +11,8 @@ import (
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/syuq/locket/internal/util"
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/internal/util"
+	"github.com/Syuq/Locket/store"
 )
 
 // Role is the type of a role.

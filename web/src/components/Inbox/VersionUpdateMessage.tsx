@@ -40,7 +40,7 @@ const VersionUpdateMessage = ({ inbox }: Props) => {
       return;
     }
 
-    window.open(`https://github.com/syuq/locket/releases/tag/v${activity?.payload?.versionUpdate?.version}`);
+    window.open(`https://github.com/Syuq/Locket/releases/tag/v${activity?.payload?.versionUpdate?.version}`);
     if (inbox.status === Inbox_Status.UNREAD) {
       handleArchiveMessage(true);
     }

@@ -17,12 +17,12 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	"github.com/syuq/locket/internal/util"
-	"github.com/syuq/locket/plugin/webhook"
-	apiv2pb "github.com/syuq/locket/proto/gen/api/v2"
-	storepb "github.com/syuq/locket/proto/gen/store"
-	apiv1 "github.com/syuq/locket/server/route/api/v1"
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/internal/util"
+	"github.com/Syuq/Locket/plugin/webhook"
+	apiv2pb "github.com/Syuq/Locket/proto/gen/api/v2"
+	storepb "github.com/Syuq/Locket/proto/gen/store"
+	apiv1 "github.com/Syuq/Locket/server/route/api/v1"
+	"github.com/Syuq/Locket/store"
 )
 
 const (

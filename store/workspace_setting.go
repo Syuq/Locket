@@ -5,7 +5,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	storepb "github.com/syuq/locket/proto/gen/store"
+	storepb "github.com/Syuq/Locket/proto/gen/store"
 )
 
 type WorkspaceSetting struct {

@@ -3,7 +3,7 @@ package sqlite
 import (
 	"context"
 
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/store"
 )
 
 func (d *DB) FindMigrationHistoryList(ctx context.Context, _ *store.FindMigrationHistory) ([]*store.MigrationHistory, error) {

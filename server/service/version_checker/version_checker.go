@@ -10,10 +10,10 @@ import (
 
 	"github.com/pkg/errors"
 
-	storepb "github.com/syuq/locket/proto/gen/store"
-	"github.com/syuq/locket/server/profile"
-	"github.com/syuq/locket/server/version"
-	"github.com/syuq/locket/store"
+	storepb "github.com/Syuq/Locket/proto/gen/store"
+	"github.com/Syuq/Locket/server/profile"
+	"github.com/Syuq/Locket/server/version"
+	"github.com/Syuq/Locket/store"
 )
 
 // nolint

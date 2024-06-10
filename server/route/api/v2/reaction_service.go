@@ -7,9 +7,9 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	apiv2pb "github.com/syuq/locket/proto/gen/api/v2"
-	storepb "github.com/syuq/locket/proto/gen/store"
-	"github.com/syuq/locket/store"
+	apiv2pb "github.com/Syuq/Locket/proto/gen/api/v2"
+	storepb "github.com/Syuq/Locket/proto/gen/store"
+	"github.com/Syuq/Locket/store"
 )
 
 func (s *APIV2Service) ListLocketReactions(ctx context.Context, request *apiv2pb.ListLocketReactionsRequest) (*apiv2pb.ListLocketReactionsResponse, error) {

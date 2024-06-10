@@ -7,7 +7,7 @@ import (
 	"github.com/lithammer/shortuuid/v4"
 	"github.com/stretchr/testify/require"
 
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/store"
 )
 
 func TestResourceStore(t *testing.T) {

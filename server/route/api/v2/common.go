@@ -7,8 +7,8 @@ import (
 	"github.com/pkg/errors"
 	"google.golang.org/protobuf/proto"
 
-	apiv2pb "github.com/syuq/locket/proto/gen/api/v2"
-	"github.com/syuq/locket/store"
+	apiv2pb "github.com/Syuq/Locket/proto/gen/api/v2"
+	"github.com/Syuq/Locket/store"
 )
 
 func convertRowStatusFromStore(rowStatus store.RowStatus) apiv2pb.RowStatus {

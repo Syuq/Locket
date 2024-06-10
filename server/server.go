@@ -11,14 +11,14 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/pkg/errors"
 
-	"github.com/syuq/locket/plugin/telegram"
-	"github.com/syuq/locket/server/integration"
-	"github.com/syuq/locket/server/profile"
-	apiv1 "github.com/syuq/locket/server/route/api/v1"
-	apiv2 "github.com/syuq/locket/server/route/api/v2"
-	"github.com/syuq/locket/server/route/frontend"
-	versionchecker "github.com/syuq/locket/server/service/version_checker"
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/plugin/telegram"
+	"github.com/Syuq/Locket/server/integration"
+	"github.com/Syuq/Locket/server/profile"
+	apiv1 "github.com/Syuq/Locket/server/route/api/v1"
+	apiv2 "github.com/Syuq/Locket/server/route/api/v2"
+	"github.com/Syuq/Locket/server/route/frontend"
+	versionchecker "github.com/Syuq/Locket/server/service/version_checker"
+	"github.com/Syuq/Locket/store"
 )
 
 type Server struct {

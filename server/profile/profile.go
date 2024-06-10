@@ -10,7 +10,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
 
-	"github.com/syuq/locket/server/version"
+	"github.com/Syuq/Locket/server/version"
 )
 
 // Profile is the configuration to start main server.

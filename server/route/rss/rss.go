@@ -13,9 +13,9 @@ import (
 	"github.com/yourselfhosted/gomark/ast"
 	"github.com/yourselfhosted/gomark/renderer"
 
-	"github.com/syuq/locket/internal/util"
-	"github.com/syuq/locket/server/profile"
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/internal/util"
+	"github.com/Syuq/Locket/server/profile"
+	"github.com/Syuq/Locket/store"
 )
 
 const (

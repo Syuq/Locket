@@ -7,7 +7,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 
-	getter "github.com/syuq/locket/plugin/http-getter"
+	getter "github.com/Syuq/Locket/plugin/http-getter"
 )
 
 func (*APIV1Service) registerGetterPublicRoutes(g *echo.Group) {

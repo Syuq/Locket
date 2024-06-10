@@ -11,8 +11,8 @@ import (
 	"github.com/pkg/errors"
 	"golang.org/x/oauth2"
 
-	"github.com/syuq/locket/plugin/idp"
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/plugin/idp"
+	"github.com/Syuq/Locket/store"
 )
 
 // IdentityProvider represents an OAuth2 Identity Provider.

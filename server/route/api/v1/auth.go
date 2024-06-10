@@ -13,12 +13,12 @@ import (
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/syuq/locket/internal/util"
-	"github.com/syuq/locket/plugin/idp"
-	"github.com/syuq/locket/plugin/idp/oauth2"
-	storepb "github.com/syuq/locket/proto/gen/store"
-	"github.com/syuq/locket/server/route/api/auth"
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/internal/util"
+	"github.com/Syuq/Locket/plugin/idp"
+	"github.com/Syuq/Locket/plugin/idp/oauth2"
+	storepb "github.com/Syuq/Locket/proto/gen/store"
+	"github.com/Syuq/Locket/server/route/api/auth"
+	"github.com/Syuq/Locket/store"
 )
 
 type SignIn struct {

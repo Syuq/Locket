@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/store"
 )
 
 func (d *DB) UpsertLocketOrganizer(ctx context.Context, upsert *store.LocketOrganizer) (*store.LocketOrganizer, error) {

@@ -3,8 +3,8 @@ package v2
 import (
 	"context"
 
-	getter "github.com/syuq/locket/plugin/http-getter"
-	apiv2pb "github.com/syuq/locket/proto/gen/api/v2"
+	getter "github.com/Syuq/Locket/plugin/http-getter"
+	apiv2pb "github.com/Syuq/Locket/proto/gen/api/v2"
 )
 
 func (*APIV2Service) GetLinkMetadata(_ context.Context, request *apiv2pb.GetLinkMetadataRequest) (*apiv2pb.GetLinkMetadataResponse, error) {

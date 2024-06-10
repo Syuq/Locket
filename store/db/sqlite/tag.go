@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"strings"
 
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/store"
 )
 
 func (d *DB) UpsertTag(ctx context.Context, upsert *store.Tag) (*store.Tag, error) {

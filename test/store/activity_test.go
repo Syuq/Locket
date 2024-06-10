@@ -6,8 +6,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	storepb "github.com/syuq/locket/proto/gen/store"
-	"github.com/syuq/locket/store"
+	storepb "github.com/Syuq/Locket/proto/gen/store"
+	"github.com/Syuq/Locket/store"
 )
 
 func TestActivityStore(t *testing.T) {

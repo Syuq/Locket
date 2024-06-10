@@ -8,10 +8,10 @@ import (
 	// sqlite driver.
 	_ "modernc.org/sqlite"
 
-	"github.com/syuq/locket/server/profile"
-	"github.com/syuq/locket/store"
-	"github.com/syuq/locket/store/db"
-	"github.com/syuq/locket/test"
+	"github.com/Syuq/Locket/server/profile"
+	"github.com/Syuq/Locket/store"
+	"github.com/Syuq/Locket/store/db"
+	"github.com/Syuq/Locket/test"
 )
 
 func NewTestingStore(ctx context.Context, t *testing.T) *store.Store {

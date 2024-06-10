@@ -12,11 +12,11 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"github.com/syuq/locket/internal/jobs"
-	"github.com/syuq/locket/server"
-	"github.com/syuq/locket/server/profile"
-	"github.com/syuq/locket/store"
-	"github.com/syuq/locket/store/db"
+	"github.com/Syuq/Locket/internal/jobs"
+	"github.com/Syuq/Locket/server"
+	"github.com/Syuq/Locket/server/profile"
+	"github.com/Syuq/Locket/store"
+	"github.com/Syuq/Locket/store/db"
 )
 
 const (
@@ -199,7 +199,7 @@ See more in:
 👉Website: %s
 👉GitHub: %s
 ---
-`, "https://duyquys.id.vn", "https://github.com/syuq/locket")
+`, "https://duyquys.id.vn", "https://github.com/Syuq/Locket")
 }
 
 func main() {

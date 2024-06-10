@@ -13,10 +13,10 @@ import (
 	"github.com/lithammer/shortuuid/v4"
 	"github.com/pkg/errors"
 
-	"github.com/syuq/locket/internal/util"
-	"github.com/syuq/locket/plugin/webhook"
-	storepb "github.com/syuq/locket/proto/gen/store"
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/internal/util"
+	"github.com/Syuq/Locket/plugin/webhook"
+	storepb "github.com/Syuq/Locket/proto/gen/store"
+	"github.com/Syuq/Locket/store"
 )
 
 // Visibility is the type of a visibility.

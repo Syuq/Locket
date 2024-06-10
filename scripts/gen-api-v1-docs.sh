@@ -4,7 +4,7 @@
 
 # For more details, check the docs:
 # * https://duyquys.id.vn/docs/contribution/development
-# * https://github.com/syuq/locket/blob/main/docs/api/documentation.md
+# * https://github.com/Syuq/Locket/blob/main/docs/api/documentation.md
 
 # Requirements:
 # * go

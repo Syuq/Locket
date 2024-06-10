@@ -14,12 +14,12 @@ import (
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 
-	"github.com/syuq/locket/internal/util"
-	"github.com/syuq/locket/plugin/idp"
-	"github.com/syuq/locket/plugin/idp/oauth2"
-	apiv2pb "github.com/syuq/locket/proto/gen/api/v2"
-	"github.com/syuq/locket/server/route/api/auth"
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/internal/util"
+	"github.com/Syuq/Locket/plugin/idp"
+	"github.com/Syuq/Locket/plugin/idp/oauth2"
+	apiv2pb "github.com/Syuq/Locket/proto/gen/api/v2"
+	"github.com/Syuq/Locket/server/route/api/auth"
+	"github.com/Syuq/Locket/store"
 )
 
 func (s *APIV2Service) GetAuthStatus(ctx context.Context, _ *apiv2pb.GetAuthStatusRequest) (*apiv2pb.GetAuthStatusResponse, error) {

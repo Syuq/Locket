@@ -8,9 +8,9 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	apiv2pb "github.com/syuq/locket/proto/gen/api/v2"
-	storepb "github.com/syuq/locket/proto/gen/store"
-	"github.com/syuq/locket/store"
+	apiv2pb "github.com/Syuq/Locket/proto/gen/api/v2"
+	storepb "github.com/Syuq/Locket/proto/gen/store"
+	"github.com/Syuq/Locket/store"
 )
 
 func (s *APIV2Service) GetActivity(ctx context.Context, request *apiv2pb.GetActivityRequest) (*apiv2pb.GetActivityResponse, error) {

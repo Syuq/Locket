@@ -10,10 +10,10 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/pkg/errors"
 
-	"github.com/syuq/locket/internal/util"
-	storepb "github.com/syuq/locket/proto/gen/store"
-	"github.com/syuq/locket/server/route/api/auth"
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/internal/util"
+	storepb "github.com/Syuq/Locket/proto/gen/store"
+	"github.com/Syuq/Locket/server/route/api/auth"
+	"github.com/Syuq/Locket/store"
 )
 
 const (

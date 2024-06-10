@@ -7,8 +7,8 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	apiv2pb "github.com/syuq/locket/proto/gen/api/v2"
-	"github.com/syuq/locket/store"
+	apiv2pb "github.com/Syuq/Locket/proto/gen/api/v2"
+	"github.com/Syuq/Locket/store"
 )
 
 func (s *APIV2Service) SetLocketRelations(ctx context.Context, request *apiv2pb.SetLocketRelationsRequest) (*apiv2pb.SetLocketRelationsResponse, error) {

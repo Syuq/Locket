@@ -13,7 +13,7 @@ const About = () => {
           </a>
           <p className="text-base">LOCKET IMAGE SHARING APP AND MORE.</p>
           <div className="mt-1 flex flex-row items-center flex-wrap">
-            <Link underline="always" href="https://www.github.com/syuq/locket" target="_blank">
+            <Link underline="always" href="https://www.github.com/Syuq/Locket" target="_blank">
               GitHub Repo
             </Link>
             <Icon.Dot className="w-4 h-auto opacity-60" />

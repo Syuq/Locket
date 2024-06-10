@@ -6,8 +6,8 @@ import (
 
 	"google.golang.org/protobuf/encoding/protojson"
 
-	storepb "github.com/syuq/locket/proto/gen/store"
-	"github.com/syuq/locket/store"
+	storepb "github.com/Syuq/Locket/proto/gen/store"
+	"github.com/Syuq/Locket/store"
 )
 
 func (d *DB) UpsertWorkspaceSetting(ctx context.Context, upsert *store.WorkspaceSetting) (*store.WorkspaceSetting, error) {

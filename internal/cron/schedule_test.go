@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/syuq/locket/internal/cron"
+	"github.com/Syuq/Locket/internal/cron"
 )
 
 func TestNewMoment(t *testing.T) {

@@ -9,9 +9,9 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/syuq/locket/plugin/storage/s3"
-	apiv1 "github.com/syuq/locket/server/route/api/v1"
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/plugin/storage/s3"
+	apiv1 "github.com/Syuq/Locket/server/route/api/v1"
+	"github.com/Syuq/Locket/store"
 )
 
 // RunPreSignLinks is a background job that pre-signs external links stored in the database.

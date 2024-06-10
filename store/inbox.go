@@ -3,7 +3,7 @@ package store
 import (
 	"context"
 
-	storepb "github.com/syuq/locket/proto/gen/store"
+	storepb "github.com/Syuq/Locket/proto/gen/store"
 )
 
 // InboxStatus is the status for an inbox.

@@ -12,8 +12,8 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/syuq/locket/server/version"
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/server/version"
+	"github.com/Syuq/Locket/store"
 )
 
 //go:embed migration

@@ -8,7 +8,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/syuq/locket/internal/util"
+	"github.com/Syuq/Locket/internal/util"
 )
 
 const (

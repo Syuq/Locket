@@ -6,7 +6,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/store"
 )
 
 func (d *DB) CreateUser(ctx context.Context, create *store.User) (*store.User, error) {

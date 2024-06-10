@@ -18,9 +18,9 @@ import (
 	"github.com/lithammer/shortuuid/v4"
 	"github.com/pkg/errors"
 
-	"github.com/syuq/locket/internal/util"
-	"github.com/syuq/locket/plugin/storage/s3"
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/internal/util"
+	"github.com/Syuq/Locket/plugin/storage/s3"
+	"github.com/Syuq/Locket/store"
 )
 
 type Resource struct {

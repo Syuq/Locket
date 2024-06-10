@@ -1,4 +1,4 @@
-module github.com/syuq/locket
+module github.com/Syuq/Locket
 
 go 1.22
 

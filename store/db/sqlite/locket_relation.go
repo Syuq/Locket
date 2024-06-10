@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"strings"
 
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/store"
 )
 
 func (d *DB) UpsertLocketRelation(ctx context.Context, create *store.LocketRelation) (*store.LocketRelation, error) {

@@ -7,11 +7,11 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
-	"github.com/syuq/locket/plugin/telegram"
-	"github.com/syuq/locket/server/profile"
-	"github.com/syuq/locket/server/route/resource"
-	"github.com/syuq/locket/server/route/rss"
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/plugin/telegram"
+	"github.com/Syuq/Locket/server/profile"
+	"github.com/Syuq/Locket/server/route/resource"
+	"github.com/Syuq/Locket/server/route/rss"
+	"github.com/Syuq/Locket/store"
 )
 
 type APIV1Service struct {

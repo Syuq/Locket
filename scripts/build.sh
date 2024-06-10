@@ -4,7 +4,7 @@
 
 # Before using, setup a proper development environment as described here:
 # * https://duyquys.id.vn/docs/contribution/development
-# * https://github.com/syuq/locket/blob/main/docs/development.md
+# * https://github.com/Syuq/Locket/blob/main/docs/development.md
 
 # Requirements:
 # * go

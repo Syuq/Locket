@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/store"
 )
 
 func (d *DB) CreateStorage(ctx context.Context, create *store.Storage) (*store.Storage, error) {

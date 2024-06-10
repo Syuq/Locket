@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 
-	storepb "github.com/syuq/locket/proto/gen/store"
+	storepb "github.com/Syuq/Locket/proto/gen/store"
 )
 
 // Driver is an interface for store driver.

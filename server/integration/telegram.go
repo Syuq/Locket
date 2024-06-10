@@ -17,12 +17,12 @@ import (
 	"github.com/yourselfhosted/gomark/parser"
 	"github.com/yourselfhosted/gomark/parser/tokenizer"
 
-	"github.com/syuq/locket/plugin/telegram"
-	"github.com/syuq/locket/plugin/webhook"
-	storepb "github.com/syuq/locket/proto/gen/store"
-	apiv1 "github.com/syuq/locket/server/route/api/v1"
-	apiv2 "github.com/syuq/locket/server/route/api/v2"
-	"github.com/syuq/locket/store"
+	"github.com/Syuq/Locket/plugin/telegram"
+	"github.com/Syuq/Locket/plugin/webhook"
+	storepb "github.com/Syuq/Locket/proto/gen/store"
+	apiv1 "github.com/Syuq/Locket/server/route/api/v1"
+	apiv2 "github.com/Syuq/Locket/server/route/api/v2"
+	"github.com/Syuq/Locket/store"
 )
 
 type TelegramHandler struct {

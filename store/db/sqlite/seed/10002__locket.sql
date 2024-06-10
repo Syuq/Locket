@@ -45,7 +45,7 @@ VALUES
   (
     3,
     "ZvH7a6VWMuX5aArtECTj4N",
-    '**[Lockets](https://github.com/syuq/locket)**: A lightweight, self-hosted locket hub. Open Source and Free forever. 
+    '**[Lockets](https://github.com/Syuq/Locket)**: A lightweight, self-hosted locket hub. Open Source and Free forever. 
 **[Slash](https://github.com/yourselfhosted/slash)**: An open source, self-hosted bookmarks and link sharing platform. Save and share your links very easily.',
     101,
     'PUBLIC'

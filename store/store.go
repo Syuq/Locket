@@ -4,7 +4,7 @@ import (
 	"context"
 	"sync"
 
-	"github.com/syuq/locket/server/profile"
+	"github.com/Syuq/Locket/server/profile"
 )
 
 // Store provides database access to all raw objects.

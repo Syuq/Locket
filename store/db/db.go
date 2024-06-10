@@ -3,11 +3,11 @@ package db
 import (
 	"github.com/pkg/errors"
 
-	"github.com/syuq/locket/server/profile"
-	"github.com/syuq/locket/store"
-	"github.com/syuq/locket/store/db/mysql"
-	"github.com/syuq/locket/store/db/postgres"
-	"github.com/syuq/locket/store/db/sqlite"
+	"github.com/Syuq/Locket/server/profile"
+	"github.com/Syuq/Locket/store"
+	"github.com/Syuq/Locket/store/db/mysql"
+	"github.com/Syuq/Locket/store/db/postgres"
+	"github.com/Syuq/Locket/store/db/sqlite"
 )
 
 // NewDBDriver creates new db driver based on profile.
