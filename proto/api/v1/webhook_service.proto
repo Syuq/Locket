@@ -1,43 +1,45 @@
 syntax = "proto3";
 
-package lockets.api.v2;
+package lockets.api.v1;
 
-import "api/v2/common.proto";
+import "api/v1/common.proto";
+import "api/v1/locket_service.proto";
 import "google/api/annotations.proto";
 import "google/api/client.proto";
+import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 import "google/protobuf/timestamp.proto";
 
-option go_package = "gen/api/v2";
+option go_package = "gen/api/v1";
 
 service WebhookService {
   // CreateWebhook creates a new webhook.
-  rpc CreateWebhook(CreateWebhookRequest) returns (CreateWebhookResponse) {
+  rpc CreateWebhook(CreateWebhookRequest) returns (Webhook) {
     option (google.api.http) = {
-      post: "/api/v2/webhooks"
+      post: "/api/v1/webhooks"
       body: "*"
     };
   }
   // GetWebhook returns a webhook by id.
-  rpc GetWebhook(GetWebhookRequest) returns (GetWebhookResponse) {
-    option (google.api.http) = {get: "/api/v2/webhooks/{id}"};
+  rpc GetWebhook(GetWebhookRequest) returns (Webhook) {
+    option (google.api.http) = {get: "/api/v1/webhooks/{id}"};
     option (google.api.method_signature) = "id";
   }
   // ListWebhooks returns a list of webhooks.
   rpc ListWebhooks(ListWebhooksRequest) returns (ListWebhooksResponse) {
-    option (google.api.http) = {get: "/api/v2/webhooks"};
+    option (google.api.http) = {get: "/api/v1/webhooks"};
   }
   // UpdateWebhook updates a webhook.
-  rpc UpdateWebhook(UpdateWebhookRequest) returns (UpdateWebhookResponse) {
+  rpc UpdateWebhook(UpdateWebhookRequest) returns (Webhook) {
     option (google.api.http) = {
-      patch: "/api/v2/webhooks/{webhook.id}"
+      patch: "/api/v1/webhooks/{webhook.id}"
       body: "webhook"
     };
     option (google.api.method_signature) = "webhook,update_mask";
   }
   // DeleteWebhook deletes a webhook by id.
-  rpc DeleteWebhook(DeleteWebhookRequest) returns (DeleteWebhookResponse) {
-    option (google.api.http) = {delete: "/api/v2/webhooks/{id}"};
+  rpc DeleteWebhook(DeleteWebhookRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {delete: "/api/v1/webhooks/{id}"};
     option (google.api.method_signature) = "id";
   }
 }
@@ -47,9 +49,9 @@ message Webhook {
 
   int32 creator_id = 2;
 
-  google.protobuf.Timestamp created_time = 3;
+  google.protobuf.Timestamp create_time = 3;
 
-  google.protobuf.Timestamp updated_time = 4;
+  google.protobuf.Timestamp update_time = 4;
 
   RowStatus row_status = 5;
 
@@ -64,16 +66,8 @@ message CreateWebhookRequest {
   string url = 2;
 }
 
-message CreateWebhookResponse {
-  Webhook webhook = 1;
-}
-
 message GetWebhookRequest {
   int32 id = 1;
-}
-
-message GetWebhookResponse {
-  Webhook webhook = 1;
 }
 
 message ListWebhooksRequest {
@@ -90,12 +84,18 @@ message UpdateWebhookRequest {
   google.protobuf.FieldMask update_mask = 2;
 }
 
-message UpdateWebhookResponse {
-  Webhook webhook = 1;
-}
-
 message DeleteWebhookRequest {
   int32 id = 1;
 }
 
-message DeleteWebhookResponse {}
+message WebhookRequestPayload {
+  string url = 1;
+
+  string activity_type = 2;
+
+  int32 creator_id = 3;
+
+  google.protobuf.Timestamp create_time = 4;
+
+  Locket locket = 5;
+}
